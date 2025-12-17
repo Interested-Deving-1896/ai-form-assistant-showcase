@@ -1,0 +1,65 @@
+name: Deploy to Environment
+description: Deploys an image to the defined environment
+inputs:
+  app_name:
+    description: Application general Name
+    required: true
+  acronym:
+    description: Application acronym
+    required: true
+  environment:
+    description: Logical Github Environment
+    required: true
+  job_name:
+    description: Job/Instance name
+    required: true
+  namespace_prefix:
+    description: Openshift Namespace common prefix
+    required: true
+  namespace_environment:
+    description: Openshift Namespace environment suffix
+    required: true
+  openshift_server:
+    description: Openshift API Endpoint
+    required: true
+  openshift_token:
+    description: Openshift Service Account Token
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install CLI tools from OpenShift Mirror
+      uses: redhat-actions/openshift-tools-installer@v1
+      with:
+        oc: "4"
+
+    - name: Login to OpenShift and select project
+      shell: bash
+      run: |
+        # OC Login
+        OC_TEMP_TOKEN=$(curl -k -X POST ${{ inputs.openshift_server }}/api/v1/namespaces/${{ inputs.namespace_prefix }}-${{ inputs.namespace_environment }}/serviceaccounts/pipeline/token --header "Authorization: Bearer ${{ inputs.openshift_token }}" -d '{"spec": {"expirationSeconds": 600}}' -H 'Content-Type: application/json; charset=utf-8' | jq -r '.status.token' )
+        oc login --token=$OC_TEMP_TOKEN --server=${{ inputs.openshift_server }}
+        # move to project context
+        oc project ${{ inputs.namespace_prefix }}-${{ inputs.namespace_environment }}
+
+    - name: Helm Deploy
+      shell: bash
+      run: >-
+        helm upgrade --install --atomic ${{ inputs.job_name }} ${{ inputs.app_name }}
+        --namespace ${{ inputs.namespace_prefix }}-${{ inputs.namespace_environment }}
+        --repo https://bcgov.github.io/ai-form-assistant-showcase
+        --values ./.github/environments/values.${{ inputs.environment }}.yaml
+        --set image.repository=ghcr.io/${{ github.repository_owner }}
+        --set image.tag=sha-$(git rev-parse --short HEAD)
+        --set route.host=${{ inputs.acronym }}-${{ inputs.namespace_environment }}-${{ inputs.job_name }}.apps.silver.devops.gov.bc.ca
+        --timeout 10m
+        --wait
+
+    - name: Wait on Deployment
+      shell: bash
+      run: |
+        oc rollout --namespace ${{ inputs.namespace_prefix }}-${{ inputs.namespace_environment }} status dc/${{ inputs.app_name }}-${{ inputs.job_name }} --watch=true

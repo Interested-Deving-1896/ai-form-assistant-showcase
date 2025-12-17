@@ -1,0 +1,89 @@
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: {{ include "aifas.fullname" . }}
+  labels:
+    {{- include "aifas.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 10
+  selector:
+    {{- include "aifas.selectorLabels" . | nindent 4 }}
+  strategy:
+    resources:
+      {{- toYaml .Values.resources | nindent 6 }}
+    rollingParams:
+      timeoutSeconds: 601
+    type: Rolling
+  template:
+    metadata:
+      labels: {{ include "aifas.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "aifas.serviceAccountName" . }}
+      {{- end }}
+      {{- with .Values.podSecurityContext }}
+      securityContext: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: app
+          {{- with .Values.securityContext }}
+          securityContext: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}/{{ .Chart.Name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: {{ .Values.route.path }}
+              port: {{ .Values.service.port }}
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: {{ .Values.route.path }}
+              port: {{ .Values.service.port }}
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: SERVER_CHES_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: {{ include "aifas.configname" . }}-ches-service-account
+            - name: SERVER_CHES_CLIENTSECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: {{ include "aifas.configname" . }}-ches-service-account
+            - name: SERVER_OIDC_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: {{ include "aifas.configname" . }}-keycloak
+            - name: SERVER_OIDC_CLIENTSECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: {{ include "aifas.configname" . }}-keycloak
+          envFrom:
+            - configMapRef:
+                name: {{ include "aifas.configname" . }}-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
