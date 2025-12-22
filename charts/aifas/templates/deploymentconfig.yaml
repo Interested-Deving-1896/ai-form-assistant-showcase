@@ -59,26 +59,6 @@ spec:
           env:
             - name: NODE_ENV
               value: production
-            - name: SERVER_CHES_CLIENTID
-              valueFrom:
-                secretKeyRef:
-                  key: username
-                  name: {{ include "aifas.configname" . }}-ches-service-account
-            - name: SERVER_CHES_CLIENTSECRET
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: {{ include "aifas.configname" . }}-ches-service-account
-            - name: SERVER_OIDC_CLIENTID
-              valueFrom:
-                secretKeyRef:
-                  key: username
-                  name: {{ include "aifas.configname" . }}-keycloak
-            - name: SERVER_OIDC_CLIENTSECRET
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: {{ include "aifas.configname" . }}-keycloak
           envFrom:
             - configMapRef:
                 name: {{ include "aifas.configname" . }}-config

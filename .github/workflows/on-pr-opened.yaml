@@ -2,7 +2,7 @@ name: Pull Request Opened
 
 env:
   ACRONYM: aifas
-  APP_NAME: aifas
+  APP_NAME: ai-form-assistant-showcase
   NAMESPACE_PREFIX: 1dca6b
 
 on:
