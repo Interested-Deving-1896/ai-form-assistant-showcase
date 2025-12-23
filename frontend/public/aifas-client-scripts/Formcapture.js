@@ -6,7 +6,7 @@
  */
 
 // Main FormCapture object
-const FormCapture = {
+  const FormCapture = {
 
   /**
    * Initialize the FormCapture script

@@ -11,7 +11,7 @@ import { Header, Footer } from '@/components/layout';
     </div>
 
     <!-- Main views -->
-    <main class="m-3 lg:mx-8 flex-auto">
+    <main class="my-6 mx-4 lg:mx-8 flex-auto">
       <slot name="main" />
     </main>
 
@@ -21,3 +21,8 @@ import { Header, Footer } from '@/components/layout';
     </footer>
   </div>
 </template>
+<style scoped>
+main {
+  max-width: 1200px;
+}
+</style>

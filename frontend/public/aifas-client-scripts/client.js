@@ -426,7 +426,10 @@
      * @returns {boolean} True when doing showcase.
      */
     function pageToAssist() {
-        return true
+        // const titleSpan = document.querySelector('.p-card-title');
+        // const validTitleText = 'Fishing Permit Application ';
+        // return titleSpan && titleSpan.textContent.includes(validTitleText);
+        return true;
     }
 
     /**

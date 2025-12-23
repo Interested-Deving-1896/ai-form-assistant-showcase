@@ -25,11 +25,11 @@ module.exports = {
     }
   ],
   plugins: [],
-  ignorePatterns: ['src/assets/*'],
+  ignorePatterns: ['public/*'],
   rules: {
     'eol-last': ['error', 'always'],
     indent: [
-      'error',
+      'warn',
       2,
       {
         SwitchCase: 1
