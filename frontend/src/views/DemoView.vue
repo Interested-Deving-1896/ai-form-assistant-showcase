@@ -57,7 +57,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <Message v-if="getConfig?.notificationBanner" severity="warn">
+  <Message 
+    v-if="getConfig?.notificationBanner"
+    severity="warn"
+  >
     {{ getConfig?.notificationBanner }}
   </Message>
 

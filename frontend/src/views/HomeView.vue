@@ -7,7 +7,10 @@ import { useConfigStore } from '@/store';
 const { getConfig } = storeToRefs(useConfigStore());
 </script>
 <template>
-  <Message v-if="getConfig?.notificationBanner" severity="warn">
+  <Message 
+    v-if="getConfig?.notificationBanner"
+    severity="warn"
+  >
     {{ getConfig?.notificationBanner }}
   </Message>
   <h1 class="font-bold">AI Form Assistant Showcase</h1>
