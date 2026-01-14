@@ -34,10 +34,8 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        'default-src': [
-          "'self'", // eslint-disable-line
-          new URL(config.get('frontend.oidc.authority')).origin
-        ]
+        defaultSrc: ["'self'", new URL(config.get('frontend.oidc.authority')).origin], // eslint-disable-line
+        connectSrc: ["'self'", 'https://nr-ai-form-dev-api-fd-atambqdccsagafbt.a01.azurefd.net'] // eslint-disable-line
       }
     }
   })

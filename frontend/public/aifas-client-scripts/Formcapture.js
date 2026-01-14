@@ -2,27 +2,25 @@
  * FormCapture.js - A script to capture all form data on any webpage
  * This script can be embedded on any webpage to collect form field information
  * including field names, values, types, and other attributes.
- * 
+ *
  */
 
 // Main FormCapture object
-  const FormCapture = {
-
+const FormCapture = {
   /**
    * Initialize the FormCapture script
    * @param {Object} options - Configuration options
    */
   init: function (options = {}) {
-
     this.options = {
-      captureOnLoad: true,           // Capture forms when the script loads
-      captureOnChange: true,         // Capture forms when any field changes
-      captureHiddenFields: false,    // Whether to capture hidden fields
-      capturePasswordFields: false,  // Whether to mask or ignore password fields
-      ignoreFormIds: [],             // Array of form IDs to ignore
-      ignoreFieldNames: [],          // Array of field names to ignore
-      onlyIncludeFields: [],         // only include fields with these data-id attribute values
-      requiredFieldIds: [],          // array of data-id's for fields that are considered 'required'
+      captureOnLoad: true, // Capture forms when the script loads
+      captureOnChange: true, // Capture forms when any field changes
+      captureHiddenFields: false, // Whether to capture hidden fields
+      capturePasswordFields: false, // Whether to mask or ignore password fields
+      ignoreFormIds: [], // Array of form IDs to ignore
+      ignoreFieldNames: [], // Array of field names to ignore
+      onlyIncludeFields: [], // only include fields with these data-id attribute values
+      requiredFieldIds: [], // array of data-id's for fields that are considered 'required'
       ...options
     };
 
@@ -41,7 +39,6 @@
    * Set up event listeners for detecting form changes
    */
   setupChangeListeners: function () {
-
     document.addEventListener('change', (event) => {
       const target = event.target;
       if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA') {
@@ -63,7 +60,6 @@
    * @returns {Array} Collection of form data objects
    */
   captureAllForms: function () {
-
     const forms = document.querySelectorAll('form');
     const formsData = [];
 
@@ -75,6 +71,7 @@
 
       const formData = this.captureForm(form, formIndex);
       formsData.push(formData);
+      console.log(`Captured form data`, formData);
     });
 
     // ---- add/update form capture data to local storage
@@ -82,10 +79,13 @@
     // pop-up windows will append their forms' data
     const formsDataInStorage = JSON.parse(localStorage.getItem('nrAiForm_formsData')) || [];
 
-    localStorage.setItem('nrAiForm_formsData', JSON.stringify(
-      // update and add fields in matching form
-      this.addOrUpdatedForms(formsDataInStorage, formsData)
-    ));
+    localStorage.setItem(
+      'nrAiForm_formsData',
+      JSON.stringify(
+        // update and add fields in matching form
+        this.addOrUpdatedForms(formsDataInStorage, formsData)
+      )
+    );
     // OR: consider just keeping one form in storage...
     // return formsData;
   },
@@ -97,7 +97,6 @@
    * @returns {Object} Form data object
    */
   captureForm: function (form, formIndex) {
-
     const formId = form.id || `form-${formIndex}`;
     const formName = form.getAttribute('name') || '';
     const formAction = form.getAttribute('action') || '';
@@ -109,7 +108,7 @@
 
     // Get all form attributes
     const formAttributes = {};
-    Array.from(form.attributes).forEach(attr => {
+    Array.from(form.attributes).forEach((attr) => {
       if (!['id', 'name', 'action', 'method', 'enctype', 'novalidate', 'target', 'class'].includes(attr.name)) {
         formAttributes[attr.name] = attr.value;
       }
@@ -129,7 +128,6 @@
       attributes: formAttributes,
       fields,
       serialized: this.serializeForm(form),
-      domElement: form,
       pageUrl: window.location.href,
       timestamp: new Date().toISOString()
     };
@@ -147,17 +145,10 @@
     // Process each form element
     Array.from(formElements).forEach((element, index) => {
       // compute an identifier for the element: prefer `data-id`, then `id`, then `name`
-      const elementIdentifier = this.getFirstNonEmpty([element.attributes['data-id']?.value, element.id, element.name]);
-      // only include fields in FormCapture init.options when configured
-      if (this.options.onlyIncludeFields.length > 0) {
-        const matchesDirect = this.options.onlyIncludeFields.includes(elementIdentifier) || this.options.onlyIncludeFields.includes(element.id) || this.options.onlyIncludeFields.includes(element.name);
-        const matchesPrefix = this.matchOnPrefix(this.options.onlyIncludeFields, element.id) || this.matchOnPrefix(this.options.onlyIncludeFields, element.name);
-        if (!matchesDirect && !matchesPrefix) return;
-      }
       // Skip ignored fields in FormCapture init.options
       if (this.options.ignoreFieldNames.includes(element.name)) return;
       // Skip fieldsets and other non-input elements
-      if (!['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(element.tagName)) return;
+      if (!['INPUT', 'SELECT', 'TEXTAREA'].includes(element.tagName)) return;
       // Skip hidden fields if configured
       if (element.type === 'hidden' && !this.options.captureHiddenFields) return;
       // skip passwords
@@ -165,20 +156,39 @@
       // Skip submit buttons
       if (element.type === 'submit') return;
 
+      // for Vue showcase, target first parent element with data-id attribute
+      // const parentDataId = element.closest('[data-id]')?.getAttribute('data-id') ?? undefined;
+      // const parentDataId = element.closest('[data-id]')?.getAttribute('data-id');
+      // const elementIdentifier = this.getFirstNonEmpty([parentDataId, element.id, element.name]);
+
+      console.log('captureFormFields:', element);
+      const elementIdentifier = this.getFirstNonEmpty([element.attributes['data-id']?.value, element.id, element.name]);
+
+      // only include fields in FormCapture init.options when configured
+      if (this.options.onlyIncludeFields.length > 0) {
+        const matchesDirect =
+          this.options.onlyIncludeFields.includes(elementIdentifier) ||
+          this.options.onlyIncludeFields.includes(element.id) ||
+          this.options.onlyIncludeFields.includes(element.name);
+        const matchesPrefix =
+          this.matchOnPrefix(this.options.onlyIncludeFields, element.id) ||
+          this.matchOnPrefix(this.options.onlyIncludeFields, element.name);
+        if (!matchesDirect && !matchesPrefix) return;
+      }
 
       const fieldData = this.captureField(element, index);
 
       // hack to de-deplicate radios and checkboxes, and use values as options
       // if fields already contains an input with fieldData.data_id (eg it is a radio)
-      const existingField = fields.find(f => f.data_id === fieldData.data_id);
+      const existingField = fields.find((f) => f.data_id === fieldData.data_id);
       if (existingField && existingField?.options) {
         // append fieldData options to existing field
-        fields.find(f => f.data_id === fieldData.data_id).options = existingField.options.concat(fieldData.options);
+        fields.find((f) => f.data_id === fieldData.data_id).options = existingField.options.concat(fieldData.options);
         // if checked, set value as fieldValue for the existing field
         // TODO: for checkboxes, and multi-selects, fieldValue should be an array of options.key
         if (element.checked) {
-          fields.find(f => f.data_id === fieldData.data_id).fieldValue = fieldData.fieldValue;
-          fields.find(f => f.data_id === fieldData.data_id).fieldLabel = fieldData.fieldLabel;
+          fields.find((f) => f.data_id === fieldData.data_id).fieldValue = fieldData.fieldValue;
+          fields.find((f) => f.data_id === fieldData.data_id).fieldLabel = fieldData.fieldLabel;
         }
       }
       // else add as new field
@@ -258,18 +268,14 @@
    */
   captureField: function (field, fieldIndex) {
     // get data_id
-    const data_id = this.getFirstNonEmpty([
-      field.attributes['data-id']?.value,
-      field.id,
-      field.name
-    ]);
+    const data_id = this.getFirstNonEmpty([field.attributes['data-id']?.value, field.id, field.name]);
     // get fieldType
     const fieldType = field.type || '';
     // get fieldLabel
     const fieldLabel = this.removeTrailingColon(this.getFieldLabel(field));
     // get is_required from either DOM or FormCapture init.options
     let is_required = false;
-    if (field.required || this.options.requiredFieldIds.includes(data_id)) is_required = true
+    if (field.required || this.options.requiredFieldIds.includes(data_id)) is_required = true;
 
     // get field options and value(s)
     let options;
@@ -282,12 +288,12 @@
     }
     // if a select, get array of options
     else if (field.tagName === 'SELECT') {
-      options = Array.from(field.options).map(option => {
+      options = Array.from(field.options).map((option) => {
         return { key: option.value, value: option.textContent };
       });
       fieldValue = Array.from(field.selectedOptions)
-        .filter(option => option.value !== "") // when key is empty, value should be empty array
-        .map(option => option.value);
+        .filter((option) => option.value !== '') // when key is empty, value should be empty array
+        .map((option) => option.value);
     }
     // else get value of text/textarea
     else {
@@ -329,22 +335,23 @@
    */
   addOrUpdatedForms: function (array, newArray, propertiesToMatch = ['formAction', 'formId']) {
     // for each form of incomming array of forms
-    newArray.forEach(newObj => {
+    newArray.forEach((newObj) => {
       // get index of matching form from array of forms in storage
-      const index = array.findIndex(obj =>
+      const index = array.findIndex((obj) =>
         // match on formId AND PosseObjectId in formAction (if defined)
-        propertiesToMatch.every(prop => {
-          return (obj[prop] === newObj[prop]) ||
-            (prop === 'formAction' && (this.comparePosseObjectId(obj[prop], newObj[prop]))) ||
+        propertiesToMatch.every((prop) => {
+          return (
+            obj[prop] === newObj[prop] ||
+            (prop === 'formAction' && this.comparePosseObjectId(obj[prop], newObj[prop])) ||
             (obj[prop] == null && newObj[prop] == null)
-        }
-        )
+          );
+        })
       );
       // if matching form found
       if (index !== -1) {
         // add or replace fields in existing <form>.fields array with new fields
-        newObj.fields.forEach(newFIeld => {
-          const i = array[index].fields.findIndex(obj => {
+        newObj.fields.forEach((newFIeld) => {
+          const i = array[index].fields.findIndex((obj) => {
             return obj['data_id'] === newFIeld.data_id;
           });
           if (i !== -1) array[index].fields[i] = newFIeld;
@@ -367,18 +374,16 @@
     const PosseObjectIdA = this.getQueryParam(pathA, 'PosseObjectId');
     const PosseObjectIdB = this.getQueryParam(pathB, 'PosseObjectId');
     const PosseFromObjectIdB = this.getQueryParam(pathB, 'PosseFromObjectId');
-    return PosseObjectIdA !== null && ((PosseObjectIdA === PosseObjectIdB) || (PosseObjectIdA === PosseFromObjectIdB));
+    return PosseObjectIdA !== null && (PosseObjectIdA === PosseObjectIdB || PosseObjectIdA === PosseFromObjectIdB);
   },
 
-  // look for one (or more) string in array matching on prefix 
+  // look for one (or more) string in array matching on prefix
   matchOnPrefix: function (arrayOfHaystacks, needle) {
     const beforeLastUnderscore = function (str) {
-      return str && str.includes('_')
-        ? str.substring(0, str.lastIndexOf('_'))
-        : str;
-    }
+      return str && str.includes('_') ? str.substring(0, str.lastIndexOf('_')) : str;
+    };
     const needlePrefix = beforeLastUnderscore(String(needle));
-    return arrayOfHaystacks.some(hay => beforeLastUnderscore(String(hay)) === needlePrefix);
+    return arrayOfHaystacks.some((hay) => beforeLastUnderscore(String(hay)) === needlePrefix);
   },
 
   /**
@@ -388,9 +393,8 @@
    * @returns {*} The first non-empty, non-undefined item, or empty string if none found
    */
   getFirstNonEmpty: function (arr) {
-    return arr.find(item => item !== undefined && item !== null && item !== '') ?? '';
+    return arr.find((item) => item !== undefined && item !== null && item !== '') ?? '';
   },
-
 
   removeTrailingColon: function (str) {
     if (str.endsWith(':')) {
@@ -399,13 +403,12 @@
     return str; // Return the original string if no trailing colon
   },
 
-
   // test
   getFieldsArray: function () {
-    const formsDataFromStorage = JSON.parse(localStorage.getItem('nrAiForm_formsData'))
+    const formsDataFromStorage = JSON.parse(localStorage.getItem('nrAiForm_formsData'));
     let fieldsArr = [];
-    formsDataFromStorage.forEach(form => {
-      form.fields.forEach(field => {
+    formsDataFromStorage.forEach((form) => {
+      form.fields.forEach((field) => {
         // enrich with mapping document
         const f = mapping[field.data_id];
         return fieldsArr.push({ ...field, ...f });
@@ -413,10 +416,7 @@
     });
     return fieldsArr;
   }
-
-
 };
 
 // Export to global namespace
-window.FormCapture = FormCapture;
-
+// window.FormCapture = FormCapture;

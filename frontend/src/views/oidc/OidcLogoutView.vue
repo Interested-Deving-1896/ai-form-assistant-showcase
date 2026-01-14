@@ -17,15 +17,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h2>Logging out...</h2>
-  <Spinner />
+  <div class="flex flex-column align-items-center mt-10">
+    <h2>Logging out...</h2>
+    <Spinner />
+  </div>
 </template>
 
 <style lang="scss" scoped>
-h2 {
-  margin-top: 10rem;
-  text-align: center;
-}
 .p-progress-spinner {
   display: flex;
   margin-top: 4rem;
