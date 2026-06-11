@@ -36,7 +36,7 @@ try {
         console.log(`${TITLE} is present and up to date`);
       }
   }
-} catch (err) {
+} catch {
   console.log(`An error occured while managing ${TITLE}`);
   process.exit(1);
 }
@@ -91,7 +91,7 @@ function deployComponents() {
  * @param {string} [cwd] Working directory of the command to run
  */
 export function runSync(cmd: string, cwd: string | undefined) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { spawnSync } = require('child_process');
   const parts = cmd.split(/\s+/g);
   const opts = {
@@ -135,7 +135,7 @@ export function copyFileSync(source: string, target: string) {
  * @param {string} target Target directory location
  */
 export function copyDirRecursiveSync(source: string, target: string) {
-  let files = [];
+  let files: string[];
 
   // Check if folder needs to be created or integrated
   const targetFolder = join(target, basename(source));

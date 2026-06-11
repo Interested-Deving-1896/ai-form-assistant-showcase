@@ -36,8 +36,8 @@ app.use(
       directives: {
         defaultSrc: ["'self'", new URL(config.get('frontend.oidc.authority')).origin], // eslint-disable-line
         connectSrc: [
-          "'self'",
-          new URL(config.get('frontend.oidc.authority')).origin, // eslint-disable-line
+          "'self'", // eslint-disable-line
+          new URL(config.get('frontend.oidc.authority')).origin,
           'https://nr-ai-form-dev-api-fd-atambqdccsagafbt.a01.azurefd.net'
         ]
       }
@@ -104,7 +104,7 @@ appRouter.use('/', express.static(join(__dirname, '../dist')));
 app.use('/', appRouter);
 
 // Handle 500
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Problem, _req: Request, res: Response, _next: () => void): void => {
   if (err.stack) {
     log.error(err);

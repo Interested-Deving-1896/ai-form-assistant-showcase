@@ -350,8 +350,8 @@ const resetForm = () => {
         <p class="m-0">
           A Form Definition (JSON schema) provides more 'context' for each form field and helps to instruct the
           Assistant with AI prompts:
-          <pre><code>{{ JSON.stringify(jsonData, null, 2) }}</code></pre>
         </p>
+        <pre><code>{{ JSON.stringify(jsonData, null, 2) }}</code></pre>
       </Panel>
     </div>
   </div>
@@ -496,7 +496,6 @@ pre {
   max-width: 450px;
   padding: 15px;
   border-radius: 5px;
-    overflow-x: auto; /* Adds scrollbar if content is too wide */
-
+  overflow-x: auto; /* Adds scrollbar if content is too wide */
 }
 </style>

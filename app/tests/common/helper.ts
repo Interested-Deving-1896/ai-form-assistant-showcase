@@ -28,7 +28,7 @@ const helper = {
     app.use(basePath, router);
 
     // Handle 500
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     app.use((err: Problem, _req: Request, res: Response, _next: () => void): void => {
       if (err instanceof Problem) {
         err.send(res);
