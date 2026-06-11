@@ -35,7 +35,11 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'", new URL(config.get('frontend.oidc.authority')).origin], // eslint-disable-line
-        connectSrc: ["'self'", 'https://nr-ai-form-dev-api-fd-atambqdccsagafbt.a01.azurefd.net'] // eslint-disable-line
+        connectSrc: [
+          "'self'",
+          new URL(config.get('frontend.oidc.authority')).origin, // eslint-disable-line
+          'https://nr-ai-form-dev-api-fd-atambqdccsagafbt.a01.azurefd.net'
+        ]
       }
     }
   })
