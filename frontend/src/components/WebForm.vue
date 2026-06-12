@@ -1,29 +1,35 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Panel } from '@/lib/primevue';
+import formDefinition from '@/assets/aifa/formDefinition.json';
 
 // ----- Form Data -----
 const formData = ref({
-  age: '',
+  dob: '',
+  wid: '',
   residency: '',
+  licenceDuration: '',
+  seniorRate: false,
+  disabilityReduction: false,
+  coeNumber: '',
   location: '',
-  licence: [],
-  conservation: null
+  classifiedWaters: false,
+  classifiedWaterName: '',
+  surcharge: []
 });
 
-// Age options
-const ageOptions = [
-  { label: '16 and under', value: 'under16' },
-  { label: 'over 16', value: 'over16' }
+// Residency options
+const residencyOptions = [
+  { label: 'BC Resident', value: 'resident' },
+  { label: 'Non-Resident (Canadian)', value: 'non-resident' },
+  { label: 'Non-Resident Alien (non-Canadian)', value: 'alien' }
 ];
 
-// Residency and Exemptions options
-const residencyOptions = [
-  { label: 'Resident', value: 'res' },
-  { label: 'Non-Resident', value: 'nonres' },
-  { label: 'Non-resident alien', value: 'nonres_alien' },
-  { label: 'Annual licence for residents with disabilities', value: 'annual_disability' },
-  { label: 'First Nations person', value: 'first_nations' }
+// Licence duration options
+const licenceDurationOptions = [
+  { label: 'One-Day', value: 'one-day' },
+  { label: 'Eight-Day', value: 'eight-day' },
+  { label: 'Annual (Apr 1 - Mar 31)', value: 'annual' }
 ];
 
 // Location options (9 regions)
@@ -39,81 +45,71 @@ const locationOptions = [
   { label: 'Region 8 - Okanagan', value: 'region8' }
 ];
 
-// Licence required options
-const licenceOptions = [
-  { label: 'Non-tidal (fresh) waters in B.C.', value: 'freshwater' },
-  { label: 'Tidal (salt) waters in B.C.', value: 'tidal' },
-  { label: 'Classified Waters', value: 'classified' }
-];
-
 // Conservation surcharge options
-const conservationOptions = [
-  { label: 'Yes', value: true },
-  { label: 'No', value: false }
+const surchargeOptions = [
+  { label: 'Steelhead', value: 'steelhead' },
+  { label: 'Non-Tidal Salmon', value: 'salmon' },
+  { label: 'Kootenay/Shuswap Rainbow Trout or Char', value: 'rainbow-char' },
+  { label: 'White Sturgeon Conservation Licence', value: 'sturgeon' }
 ];
 
-const jsonData = {
-  name: 'fishing-licence-form',
-  schema: {
-    age: {
-      fieldLabel: 'Age',
-      fieldContext: 'What is your age category?',
-      options: [
-        { key: 'under16', value: '16 and under' },
-        { key: 'over16', value: 'over 16' }
-      ],
-      is_required: true
-    },
-    residency: {
-      fieldLabel: 'Residency and Exemptions',
-      fieldContext: 'Select your residency status or exemption category',
-      options: [
-        { key: 'res', value: 'Resident' },
-        { key: 'nonres', value: 'Non-Resident' },
-        { key: 'nonres_alien', value: 'Non-resident alien' },
-        { key: 'annual_disability', value: 'Annual licence for residents with disabilities' },
-        { key: 'first_nations', value: 'First Nations person' }
-      ],
-      is_required: true
-    },
-    location: {
-      fieldLabel: 'Location',
-      fieldContext: 'Select the region where you plan to fish',
-      options: [
-        { key: 'region1', value: 'Region 1 - Vancouver Island (includes Haida Gwaii: WMU 6-12, 6-13)' },
-        { key: 'region2', value: 'Region 2 - Lower Mainland' },
-        { key: 'region3', value: 'Region 3 - Thompson' },
-        { key: 'region4', value: 'Region 4 - Kootenay' },
-        { key: 'region5', value: 'Region 5 - Cariboo' },
-        { key: 'region6', value: 'Region 6 - Skeena' },
-        { key: 'region7a', value: 'Region 7A - Omineca' },
-        { key: 'region7b', value: 'Region 7B - Peace' },
-        { key: 'region8', value: 'Region 8 - Okanagan' }
-      ],
-      is_required: true
-    },
-    licence: {
-      fieldLabel: 'Licence Required',
-      fieldContext: 'Select which type of licence you need (you can select multiple)',
-      options: [
-        { key: 'freshwater', value: 'Non-tidal (fresh) waters in B.C.' },
-        { key: 'classified', value: 'Classified Waters' },
-        { key: 'tidal', value: 'Tidal (salt) waters in B.C.' }
-      ],
-      is_required: true
-    },
-    conservation: {
-      fieldLabel: 'Will you need a Conservation surcharge licence?',
-      fieldContext: 'A conservation surcharge licence provides additional conservation benefits',
-      options: [
-        { key: 'true', value: 'Yes' },
-        { key: 'false', value: 'No' }
-      ],
-      is_required: true
-    }
-  }
-};
+// ----- Calculated Price -----
+const calculatedPrice = computed(() => {
+  return (0.0).toFixed(2);
+});
 
+/*
+// Classified Waters Licence fees
+// const classifiedWatersFees = {
+//   resident: 17.15,
+//   'non-resident': 45.72,
+//   alien: 45.72
+// };
+
+// // Conservation Surcharge stamp fees (resident / non-resident rates)
+// const surchargeFees = {
+//   steelhead: { resident: 28.57, nonResident: 68.57 },
+//   salmon: { resident: 17.14, nonResident: 34.29 },
+//   'rainbow-char': { resident: 11.43, nonResident: 22.86 },
+//   sturgeon: { resident: 28.57, nonResident: 68.58 }
+// };
+
+// // Base licence fees by residency and duration
+// const licenceFees = {
+//   resident: { 'one-day': 11.43, 'eight-day': 22.86, annual: 41.15 },
+//   'non-resident': { 'one-day': 22.86, 'eight-day': 41.15, annual: 62.87 },
+//   alien: { 'one-day': 22.86, 'eight-day': 57.14, annual: 91.44 }
+// };
+
+// const calculatedPrice = computed(() => {
+//   const { residency, licenceDuration, seniorRate, disabilityReduction, classifiedWaters, surcharge } = formData.value;
+
+//   if (!residency || !licenceDuration) {
+//     return null;
+//   }
+
+//   let total = licenceFees[residency][licenceDuration];
+
+//   if (residency === 'resident' && licenceDuration === 'annual') {
+//     if (disabilityReduction) {
+//       total = 1.14;
+//     } else if (seniorRate) {
+//       total = 5.71;
+//     }
+//   }
+
+//   if (classifiedWaters) {
+//     total += classifiedWatersFees[residency];
+//   }
+
+//   const surchargeRate = residency === 'resident' ? 'resident' : 'nonResident';
+//   surcharge.forEach((stamp) => {
+//     total += surchargeFees[stamp][surchargeRate];
+//   });
+
+//   return total.toFixed(2);
+// });
+*/
 // ----- Actions -----
 
 const submitForm = () => {
@@ -123,11 +119,17 @@ const submitForm = () => {
 
 const resetForm = () => {
   formData.value = {
-    age: null,
-    residency: null,
-    location: null,
-    licence: [],
-    conservation: null
+    dob: '',
+    wid: '',
+    licenceDuration: '',
+    seniorRate: false,
+    disabilityReduction: false,
+    coeNumber: '',
+    residency: '',
+    location: '',
+    classifiedWaters: false,
+    classifiedWaterName: '',
+    surcharge: []
   };
 };
 </script>
@@ -140,55 +142,133 @@ const resetForm = () => {
         name="fishing-licence-form"
         @submit.prevent="submitForm"
       >
-        <!-- Age Field -->
+        <!-- Applicant Information -->
         <fieldset>
-          <legend>Age Group</legend>
+          <legend>Applicant Information</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="age"
+            data-id="dob"
             class="helpLink"
           />
-          <select
-            v-model="formData.age"
-            data-id="age"
-            class="w-full"
-          >
-            <option value="">please select</option>
-            <option
-              v-for="option in ageOptions"
-              :key="option.value"
-              :value="option.value"
-            >
-              {{ option.label }}
-            </option>
-          </select>
-        </fieldset>
 
-        <!-- Residency and Exemptions Field -->
-        <fieldset>
-          <legend>Residency and Exemptions</legend>
-          <div
-            v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="residency"
-            class="helpLink"
+          <label for="dob">Date of Birth</label>
+          <input
+            id="dob"
+            v-model="formData.dob"
+            type="date"
+            data-id="dob"
+            class="w-full mb-4"
+            required
           />
-          <select
-            v-model="formData.residency"
-            data-id="residency"
-            class="w-full"
-          >
-            <option value="">please select</option>
-            <option
+          <!-- Residency Status -->
+
+          <div class="form-group mb-4">
+            <label for="residency">Residency Status</label>
+            <div
+              v-tooltip="{ value: 'Ask the Assistant' }"
+              data-id="residency"
+              class="helpLink"
+            />
+            <div
               v-for="option in residencyOptions"
               :key="option.value"
+              class="radio-option"
+            >
+              <input
+                :id="'residency_' + option.value"
+                v-model="formData.residency"
+                type="radio"
+                :value="option.value"
+                data-id="residency"
+              />
+              <label
+                :for="'residency_' + option.value"
+                class="ml-2"
+              >
+                {{ option.label }}
+              </label>
+            </div>
+          </div>
+
+          <label for="wid">Fish and Wildlife ID (WID)</label>
+          <small>Leave blank if you need to register for a new WID.</small>
+          <input
+            id="wid"
+            v-model="formData.wid"
+            type="text"
+            data-id="wid"
+            class="w-full"
+          />
+        </fieldset>
+
+        <!-- Licence Type -->
+        <fieldset>
+          <legend>Licence Type</legend>
+          <div
+            v-tooltip="{ value: 'Ask the Assistant' }"
+            data-id="licenceDuration"
+            class="helpLink"
+          />
+          <label for="licenceDuration">Duration</label>
+          <select
+            id="licenceDuration"
+            v-model="formData.licenceDuration"
+            data-id="licenceDuration"
+            class="w-full mb-2"
+          >
+            <option value="">please select</option>
+            <option
+              v-for="option in licenceDurationOptions"
+              :key="option.value"
               :value="option.value"
             >
               {{ option.label }}
             </option>
           </select>
+
+          <div class="checkbox-option">
+            <input
+              id="seniorRate"
+              v-model="formData.seniorRate"
+              type="checkbox"
+              data-id="seniorRate"
+            />
+            <label
+              for="seniorRate"
+              class="ml-2"
+            >
+              I am 65 or older (resident annual rate)
+            </label>
+          </div>
+
+          <div class="checkbox-option">
+            <input
+              id="disabilityReduction"
+              v-model="formData.disabilityReduction"
+              type="checkbox"
+              data-id="disabilityReduction"
+            />
+            <label
+              for="disabilityReduction"
+              class="ml-2"
+            >
+              I hold a Certificate of Eligibility for the fee reduction program (severe and permanent disability)
+            </label>
+          </div>
+
+          <template v-if="formData.disabilityReduction">
+            <label for="coeNumber">Certificate of Eligibility Number</label>
+            <input
+              id="coeNumber"
+              v-model="formData.coeNumber"
+              type="text"
+              data-id="coeNumber"
+              class="w-full"
+            />
+          </template>
         </fieldset>
 
-        <!-- Location Field -->
+        <!-- Fishing Region -->
         <fieldset>
           <legend>Fishing Region</legend>
           <div
@@ -212,28 +292,64 @@ const resetForm = () => {
           </select>
         </fieldset>
 
-        <!-- Licence Required Field -->
+        <!-- Classified Waters Licence -->
         <fieldset>
-          <legend>Licence Type</legend>
+          <legend>Classified Waters Licence (optional)</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="licence"
+            data-id="classifiedWaters"
+            class="helpLink"
+          />
+          <div class="checkbox-option">
+            <input
+              id="classifiedWaters"
+              v-model="formData.classifiedWaters"
+              type="checkbox"
+              data-id="classifiedWaters"
+            />
+            <label
+              for="classifiedWaters"
+              class="ml-2"
+            >
+              Add a Classified Waters Licence
+            </label>
+          </div>
+
+          <template v-if="formData.classifiedWaters">
+            <label for="classifiedWaterName">Water Name / Region</label>
+            <small>E.g. Dean River, Skagit River, Kootenay region rivers.</small>
+            <input
+              id="classifiedWaterName"
+              v-model="formData.classifiedWaterName"
+              type="text"
+              data-id="classifiedWaterName"
+              class="w-full"
+            />
+          </template>
+        </fieldset>
+
+        <!-- Conservation Surcharge Stamps -->
+        <fieldset>
+          <legend>Conservation Surcharge Stamps (optional)</legend>
+          <div
+            v-tooltip="{ value: 'Ask the Assistant' }"
+            data-id="surcharge"
             class="helpLink"
           />
           <div
-            v-for="option in licenceOptions"
+            v-for="option in surchargeOptions"
             :key="option.value"
             class="checkbox-option"
           >
             <input
-              :id="'licence_' + option.value"
-              v-model="formData.licence"
+              :id="'surcharge_' + option.value"
+              v-model="formData.surcharge"
               type="checkbox"
               :value="option.value"
-              data-id="licence"
+              data-id="surcharge"
             />
             <label
-              :for="'licence_' + option.value"
+              :for="'surcharge_' + option.value"
               class="ml-2"
             >
               {{ option.label }}
@@ -241,35 +357,17 @@ const resetForm = () => {
           </div>
         </fieldset>
 
-        <!-- Conservation Surcharge Field -->
+        <!-- Estimated Cost -->
         <fieldset>
-          <legend>Conservation Surcharge</legend>
-          <div
-            v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="conservation"
-            class="helpLink"
+          <legend>Estimated Licence Cost</legend>
+          <input
+            id="estimatedCost"
+            :value="calculatedPrice"
+            type="text"
+            data-id="estimatedCost"
+            class="w-full"
+            readonly
           />
-          <small>Will you be fishing for endangered species or in protected areas?</small>
-
-          <div
-            v-for="option in conservationOptions"
-            :key="option.value"
-            class="radio-option mt-2"
-          >
-            <input
-              :id="'conservation_' + option.value"
-              v-model="formData.conservation"
-              type="radio"
-              :value="option.value"
-              data-id="conservation"
-            />
-            <label
-              :for="'conservation_' + option.value"
-              class="ml-2"
-            >
-              {{ option.label }}
-            </label>
-          </div>
         </fieldset>
 
         <!-- Form Actions -->
@@ -351,7 +449,7 @@ const resetForm = () => {
           A Form Definition (JSON schema) provides more 'context' for each form field and helps to instruct the
           Assistant with AI prompts:
         </p>
-        <pre><code>{{ JSON.stringify(jsonData, null, 2) }}</code></pre>
+        <pre><code>{{ JSON.stringify(formDefinition, null, 2) }}</code></pre>
       </Panel>
     </div>
   </div>
@@ -375,6 +473,13 @@ fieldset legend {
   font-weight: 600;
   font-size: 1.1rem;
   color: #333;
+}
+
+fieldset label {
+  display: block;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .helpLink {
@@ -413,9 +518,15 @@ select option:first-child {
   cursor: pointer;
   font-size: 0.95rem;
   color: #333;
+  font-weight: normal;
+  margin: 0;
 }
 
-select {
+select,
+input[type='text'],
+input[type='date'],
+input[type='email'],
+input[type='tel'] {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #d3d3d3;
@@ -424,16 +535,31 @@ select {
   background-color: white;
   cursor: pointer;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
-select:hover {
+select:hover,
+input[type='text']:hover,
+input[type='date']:hover,
+input[type='email']:hover,
+input[type='tel']:hover {
   border-color: #3b82f6;
 }
 
-select:focus {
+select:focus,
+input[type='text']:focus,
+input[type='date']:focus,
+input[type='email']:focus,
+input[type='tel']:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+input[type='text']:read-only {
+  background-color: #f4f4f4;
+  cursor: default;
+  /* font-weight: 600; */
 }
 
 .ml-2 {
