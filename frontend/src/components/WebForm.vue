@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { Panel } from '@/lib/primevue';
 import formDefinition from '@/assets/aifa/formDefinition.json';
+import promptTemplate from '@/assets/aifa/promptTemplate.txt?raw';
 
 // ----- Form Data -----
 const formData = ref({
@@ -446,10 +447,24 @@ const resetForm = () => {
         class="mt-5"
       >
         <p class="m-0">
-          A Form Definition (JSON schema) provides more 'context' for each form field and helps to instruct the
-          Assistant with AI prompts:
+          A Form Definition (JSON schema) tells the AI Form Assistant about the webform and data structure. It is used
+          to instruct the Assistant with AI prompts and provides more 'context' for each form field.
         </p>
         <pre><code>{{ JSON.stringify(formDefinition, null, 2) }}</code></pre>
+      </Panel>
+
+      <Panel
+        header="Prompt Template"
+        toggleable
+        class="mt-5"
+      >
+        <p class="m-0">
+          A Prompt Template is a text file that contains the instructions and guidelines for how the AI Form Assistant
+          should generate responses. It often includes placeholders for dynamic content, such as form data or user
+          input, and is used to ensure that the Assistant's responses are relevant, accurate, and consistent with the
+          desired tone.
+        </p>
+        <pre><code>{{ promptTemplate }}</code></pre>
       </Panel>
     </div>
   </div>
