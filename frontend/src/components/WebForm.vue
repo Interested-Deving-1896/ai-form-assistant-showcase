@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 import { Panel } from '@/lib/primevue';
 import formDefinition from '@/assets/aifa/formDefinition.json';
-import promptTemplate from '@/assets/aifa/promptTemplate.txt?raw';
+import promptTemplate from '@/assets/aifa/promptTemplate.md?raw';
 
 // ----- Form Data -----
 const formData = ref({
