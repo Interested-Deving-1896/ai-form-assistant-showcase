@@ -12,14 +12,11 @@ const helloStore = useHelloStore();
 const { getConfig } = storeToRefs(useConfigStore());
 const { getHello } = storeToRefs(helloStore);
 
-// ----- link to AI Form Assistant client.js -----
-const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
-// const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
-
 onMounted(() => {
-  // const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
+  // ----- link to AI Form Assistant client.js -----
+  const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
+  // const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
   const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
-
   if (!exists) {
     const script = document.createElement('script');
     script.src = AIFAS_CLIENT_SRC;

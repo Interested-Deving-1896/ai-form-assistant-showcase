@@ -39,6 +39,10 @@ app.use(
           "'self'", // eslint-disable-line
           new URL(config.get('frontend.oidc.authority')).origin,
           'https://nr-ai-form-dev-api-fd-atambqdccsagafbt.a01.azurefd.net'
+        ],
+        scriptSrc: [
+          "'self'", // eslint-disable-line
+          'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net'
         ]
       }
     }
