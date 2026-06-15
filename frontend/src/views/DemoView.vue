@@ -12,42 +12,21 @@ const helloStore = useHelloStore();
 const { getConfig } = storeToRefs(useConfigStore());
 const { getHello } = storeToRefs(helloStore);
 
+// ----- link to AI Form Assistant client.js -----
+// const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
+const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
+
 onMounted(() => {
-  // -------------- load AI Form Assistant scripts --------------
-  // Array of script sources
-  const scriptSources = [
-    '/aifas-client-scripts/Formcapture.js',
-    '/aifas-client-scripts/form-context-mapping.js',
-    '/aifas-client-scripts/client.js'
-  ];
+  // const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
+  const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
 
-  // Check if scripts already exist in head before adding
-  scriptSources.forEach((src) => {
-    const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src.includes(src));
-
-    if (!exists) {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      document.head.appendChild(script);
-    }
-  });
+  if (!exists) {
+    const script = document.createElement('script');
+    script.src = AIFAS_CLIENT_SRC;
+    script.async = true;
+    document.head.appendChild(script);
+  }
 });
-
-// onUnmounted(() => {
-//   alert('un');
-// const scriptElements = document.getElementsByClassName('aifas');
-//   if (scriptElements.length > 0) {
-//     Array.from(scriptElements).forEach((scriptElement) => {
-//       document.head.removeChild(scriptElement);
-//     });
-//   }
-
-//   const chatbotElements = document.querySelectorAll('[id^="wp-chatbot"]');
-//   chatbotElements.forEach((element) => {
-//     element.remove();
-//   });
-// });
 </script>
 
 <template>

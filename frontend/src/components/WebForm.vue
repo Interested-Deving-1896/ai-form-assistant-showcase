@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Panel } from '@/lib/primevue';
+import { Message, Panel } from '@/lib/primevue';
 import formDefinition from '@/assets/aifa/formDefinition.json';
 import promptTemplate from '@/assets/aifa/promptTemplate.md?raw';
 
@@ -137,15 +137,55 @@ const resetForm = () => {
 <template>
   <div class="grid">
     <div class="col col-6 form-container">
-      <h1 class="m-0">Start Fishing!</h1>
-      <p>The following webform will help you apply for a fresh water fishing licence in British Columbia.</p>
+      <h1 class="m-0">Buy Fishing Licences</h1>
+      <p>
+        For information on freshwater fishing
+        <a
+          href="https://www2.gov.bc.ca/gov/content/sports-culture/recreation/fishing-hunting/fishing/recreational-freshwater-fishing-licence"
+          target="_blank"
+        >
+          licences
+        </a>
+        and fishing
+        <a
+          href="https://www2.gov.bc.ca/gov/content/sports-culture/recreation/fishing-hunting/fishing/fishing-regulations"
+          target="_blank"
+        >
+          regulations
+        </a>
+        in B.C., refer to the
+        <a
+          href="https://www2.gov.bc.ca/gov/content?id=78F8FA0205454970B14CC3537F46829A"
+          target="_blank"
+        >
+          Freshwater Fishing in B.C. webpages
+        </a>
+        .
+      </p>
+
+      <Message
+        severity="info"
+        class="hidden"
+      >
+        This is not a tidal (saltwater) licence. Freshwater fishing licences do not include fishing in British
+        Columbia's coastal tidal waters. Tidal (saltwater) fishing regulations and licences are under the jurisdiction
+        of the Canadian federal government. For more information and licence purchase visit the
+        <a
+          href="https://recfish-pechesportive.dfo-mpo.gc.ca/nrls-sndpp/index-eng.cfm"
+          target="_blank"
+        >
+          Department of Fisheries and Oceans
+        </a>
+        website.
+      </Message>
+
       <form
         name="fishing-licence-form"
         @submit.prevent="submitForm"
       >
         <!-- Applicant Information -->
         <fieldset>
-          <legend>Applicant Information</legend>
+          <legend>Angler Information</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
             data-id="dob"
@@ -204,7 +244,7 @@ const resetForm = () => {
 
         <!-- Licence Type -->
         <fieldset>
-          <legend>Licence Type</legend>
+          <legend>Fishing Licence Type</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
             data-id="licenceDuration"
@@ -393,6 +433,7 @@ const resetForm = () => {
       <Panel
         header="Data Sources"
         toggleable
+        collapsed
       >
         <p class="m-0">The Assistant is trained on text from the following data sources:</p>
         <ul>
@@ -444,6 +485,7 @@ const resetForm = () => {
       <Panel
         header="Form Definition"
         toggleable
+        collapsed
         class="mt-5"
       >
         <p class="m-0">
@@ -456,6 +498,7 @@ const resetForm = () => {
       <Panel
         header="Prompt Template"
         toggleable
+        collapsed
         class="mt-5"
       >
         <p class="m-0">
@@ -471,6 +514,10 @@ const resetForm = () => {
 </template>
 
 <style scoped>
+.hidden {
+  display: none !important;
+}
+
 .form-container {
   max-width: 600px;
 }
