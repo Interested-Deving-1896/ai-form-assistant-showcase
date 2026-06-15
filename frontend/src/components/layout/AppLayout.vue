@@ -3,7 +3,7 @@ import { Header, Footer } from '@/components/layout';
 </script>
 
 <template>
-  <div class="w-full min-h-screen flex flex-column">
+  <div class="w-full min-h-screen flex flex-col">
     <!-- Header/Nav -->
     <div class="layout-head">
       <Header />
@@ -11,7 +11,7 @@ import { Header, Footer } from '@/components/layout';
     </div>
 
     <!-- Main views -->
-    <main class="my-4 mx-4 lg:mx-7 flex-auto">
+    <main class="my-6 mx-6 lg:mx-16 flex-auto">
       <slot name="main" />
     </main>
 
@@ -21,8 +21,3 @@ import { Header, Footer } from '@/components/layout';
     </footer>
   </div>
 </template>
-<style scoped>
-main {
-  max-width: 1200px;
-}
-</style>

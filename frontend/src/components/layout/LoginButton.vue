@@ -42,5 +42,8 @@ function logout() {
 <style scoped>
 button {
   color: white !important;
+  &:hover {
+    color: var(--bc-blue) !important;
+  }
 }
 </style>

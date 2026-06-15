@@ -135,8 +135,8 @@ const resetForm = () => {
 };
 </script>
 <template>
-  <div class="grid">
-    <div class="col col-6 form-container">
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6 form-container">
       <h1 class="m-0">Buy Fishing Licences</h1>
       <p>
         For information on freshwater fishing
@@ -198,12 +198,12 @@ const resetForm = () => {
             v-model="formData.dob"
             type="date"
             data-id="dob"
-            class="w-full mb-4"
+            class="w-full mb-6"
             required
           />
           <!-- Residency Status -->
 
-          <div class="form-group mb-4">
+          <div class="form-group mb-6">
             <label for="residency">Residency Status</label>
             <div
               v-tooltip="{ value: 'Ask the Assistant' }"
@@ -429,7 +429,7 @@ const resetForm = () => {
       </form>
     </div>
 
-    <div class="col col-5 col-offset-1 notes-container">
+    <div class="col-span-5 col-start-8 notes-container mt-8">
       <Panel
         header="Data Sources"
         toggleable
@@ -486,7 +486,7 @@ const resetForm = () => {
         header="Form Definition"
         toggleable
         collapsed
-        class="mt-5"
+        class="mt-8"
       >
         <p class="m-0">
           A Form Definition (JSON schema) tells the AI Form Assistant about the webform and data structure. It is used
@@ -499,7 +499,7 @@ const resetForm = () => {
         header="Prompt Template"
         toggleable
         collapsed
-        class="mt-5"
+        class="mt-8"
       >
         <p class="m-0">
           A Prompt Template is a text file that contains the instructions and guidelines for how the AI Form Assistant
@@ -514,176 +514,8 @@ const resetForm = () => {
 </template>
 
 <style scoped>
-.hidden {
-  display: none !important;
-}
-
 .form-container {
-  max-width: 600px;
-}
-
-fieldset {
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #d3d3d3;
-  border-radius: 4px;
-  background-color: #fafafa;
-}
-
-fieldset legend {
-  padding: 0.2rem;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-fieldset label {
-  display: block;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  margin-bottom: 0.2rem;
-}
-
-.helpLink {
-  position: relative;
-  display: block;
-  float: right;
-  top: -1rem;
-  cursor: pointer;
-  width: 2rem;
-  height: 1rem;
-  background: url('/public/aifas-client-scripts/spark_blue.svg') no-repeat center center;
-  background-size: contain;
-}
-
-select option:first-child {
-  color: #ccc;
-}
-
-.radio-option,
-.checkbox-option {
-  display: flex;
-  align-items: center;
-  padding: 0.2rem 0;
-}
-
-.radio-option input[type='radio'],
-.checkbox-option input[type='checkbox'] {
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
-  accent-color: #3b82f6;
-}
-
-.radio-option label,
-.checkbox-option label {
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: #333;
-  font-weight: normal;
-  margin: 0;
-}
-
-select,
-input[type='text'],
-input[type='date'],
-input[type='email'],
-input[type='tel'] {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d3d3d3;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  background-color: white;
-  cursor: pointer;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
-}
-
-select:hover,
-input[type='text']:hover,
-input[type='date']:hover,
-input[type='email']:hover,
-input[type='tel']:hover {
-  border-color: #3b82f6;
-}
-
-select:focus,
-input[type='text']:focus,
-input[type='date']:focus,
-input[type='email']:focus,
-input[type='tel']:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-input[type='text']:read-only {
-  background-color: #f4f4f4;
-  cursor: default;
-  /* font-weight: 600; */
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  justify-content: center;
-}
-
-.btn {
-  padding: 0.5rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.btn-secondary {
-  background-color: #e5e7eb;
-  color: #333;
-}
-
-.btn-secondary:hover {
-  background-color: #d1d5db;
-}
-
-small {
-  display: block;
-  color: #666;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
-}
-
-pre {
-  background-color: #f4f4f4;
-  max-width: 450px;
-  padding: 15px;
-  border-radius: 5px;
-  overflow-x: auto; /* Adds scrollbar if content is too wide */
+  max-width: 800px;
+  color: #2d2d2d;
 }
 </style>

@@ -29,7 +29,7 @@ onErrorCaptured((e: Error) => {
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <ConfirmDialog />
     <ProgressLoader v-if="getIsLoading" />
     <Toast />
@@ -44,13 +44,3 @@ onErrorCaptured((e: Error) => {
     </AppLayout>
   </div>
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-}
-</style>

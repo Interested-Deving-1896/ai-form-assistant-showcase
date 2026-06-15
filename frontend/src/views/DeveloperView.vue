@@ -11,12 +11,12 @@ const { getConfig } = storeToRefs(useConfigStore());
 <template>
   <h2>Developer</h2>
   <div>
-    <div class="flex mt-3">
+    <div class="flex mt-4">
       <h3>Config</h3>
     </div>
     {{ getConfig }}
 
-    <div class="flex mt-3">
+    <div class="flex mt-4">
       <h3>Token</h3>
     </div>
 
@@ -24,7 +24,7 @@ const { getConfig } = storeToRefs(useConfigStore());
       {{ getAccessToken }}
     </div>
 
-    <div class="flex mt-3">
+    <div class="flex mt-4">
       <h3>Profile</h3>
     </div>
     {{ getProfile }}

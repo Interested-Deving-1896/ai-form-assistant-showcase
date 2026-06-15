@@ -1,32 +1,11 @@
-// {
-//   "compilerOptions": {
-//     "composite": true,
-//     "target": "ES2020",
-//     "module": "ESNext",
-//     "lib": ["ES2020"],
-//     "skipLibCheck": true,
-//     "esModuleInterop": true,
-//     "allowSyntheticDefaultImports": true
-//   },
-//   "include": [
-//     "vite.config.ts",
-//     "vitest.config.ts"
-//   ]
-// }
 {
   "extends": "@tsconfig/node22/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "playwright.config.*"
-  ],
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
     "composite": true,
     "types": [],
     "skipLibCheck": true,
+    "allowJs": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

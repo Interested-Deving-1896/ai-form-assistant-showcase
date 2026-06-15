@@ -5,7 +5,7 @@ import { LoginButton } from '@/components/layout';
 <template>
   <header>
     <nav id="header-branding">
-      <div class="flex flex-row flex-wrap align-items-center p-3 lg:pl-6">
+      <div class="flex flex-row flex-wrap items-center px-4 lg:pl-12">
         <div class="flex flex-none">
           <a href="https://www2.gov.bc.ca">
             <img
@@ -16,10 +16,10 @@ import { LoginButton } from '@/components/layout';
             />
           </a>
         </div>
-        <div class="flex flex-grow-1 ml-2">
+        <div class="flex grow ml-2">
           <h2 class="m-0">AI Form Assistant</h2>
         </div>
-        <div class="flex flex-none lg:mr-6 ml-2">
+        <div class="flex flex-none lg:mr-12 ml-2">
           <LoginButton />
         </div>
       </div>
@@ -36,6 +36,9 @@ import { LoginButton } from '@/components/layout';
   -webkit-box-shadow: 0 6px 8px -4px #b3b1b3;
   -moz-box-shadow: 0 6px 8px -4px #b3b1b3;
 
+  h2 {
+    color: white;
+  }
   @media not print {
     border-bottom: 2px solid #fcba19;
   }

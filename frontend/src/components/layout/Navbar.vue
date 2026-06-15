@@ -9,10 +9,10 @@ const { getIsAuthenticated } = storeToRefs(useAuthStore());
 </script>
 
 <template>
-  <nav class="navigation-main pl-2 lg:pl-6">
+  <nav class="navigation-main pl-2 lg:pl-12">
     <Toolbar>
       <template #start>
-        <ol class="list-none m-0 p-0 flex flex-row align-items-center font-semibold">
+        <ol class="list-none m-0 p-0 flex flex-row items-center font-semibold">
           <li>
             <router-link :to="{ name: RouteNames.HOME }">Home</router-link>
           </li>

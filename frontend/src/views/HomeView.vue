@@ -15,7 +15,7 @@ const { getConfig } = storeToRefs(useConfigStore());
   </Message>
   <h2>What is this all about?</h2>
 
-  <p class="mt-4">
+  <p class="mt-6">
     We're here to tell you about the AI Form Assistant, an innovative solution designed to enhance your form-filling
     experience using artificial intelligence. The Form Assistant is part of the Common AI Services initiative, helping
     program areas leverage AI.

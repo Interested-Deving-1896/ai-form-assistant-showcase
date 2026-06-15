@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
-import { definePreset } from '@primeuix/themes';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
@@ -19,7 +18,7 @@ import { AuthService, ConfigService } from '@/services';
 
 import '@bcgov/bc-sans/css/BCSans.css';
 import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
+import '@/assets/tailwind.css';
 import '@/assets/main.scss';
 
 /**
@@ -41,43 +40,26 @@ function initializeApp(): void {
   app.use(getRouter());
 
   /* PrimeVue Configuration */
-  const blueAura = definePreset(Aura, {
-    semantic: {
-      primary: {
-        50: '{blue.50}',
-        100: '{blue.100}',
-        200: '{blue.200}',
-        300: '{blue.300}',
-        400: '{blue.400}',
-        500: '{blue.500}',
-        600: '{blue.600}',
-        700: '{blue.700}',
-        800: '{blue.800}',
-        900: '{blue.900}',
-        950: '{blue.950}'
-      }
-    }
-  });
   app.use(PrimeVue, {
     theme: {
-      preset: blueAura,
+      preset: Aura,
       options: {
         prefix: 'p',
         darkModeSelector: 'system',
-        cssLayer: true
+        cssLayer: {
+          name: 'primevue',
+          order: 'tailwind-base, primevue, tailwind-utilities'
+        }
       }
-    }
-  });
-  app.use(ToastService);
-  app.use(ConfirmationService);
-
-  app.use(PrimeVue, {
+    },
     pt: {
       inputtext: {
         root: { 'data-app-wide': 'true' }
       }
     }
   });
+  app.use(ToastService);
+  app.use(ConfirmationService);
 
   app.component('FontAwesomeIcon', FontAwesomeIcon);
   app.directive('tooltip', Tooltip);

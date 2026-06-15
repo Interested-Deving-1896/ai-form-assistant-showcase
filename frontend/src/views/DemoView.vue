@@ -13,8 +13,8 @@ const { getConfig } = storeToRefs(useConfigStore());
 const { getHello } = storeToRefs(helloStore);
 
 // ----- link to AI Form Assistant client.js -----
-// const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
-const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
+const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
+// const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
 
 onMounted(() => {
   // const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
@@ -39,7 +39,7 @@ onMounted(() => {
 
   <WebForm />
 
-  <div class="flex flex-column api-test">
+  <div class="flex flex-col api-test">
     <div class="flex">
       <h4 class="font-bold">
         {{ getHello }}

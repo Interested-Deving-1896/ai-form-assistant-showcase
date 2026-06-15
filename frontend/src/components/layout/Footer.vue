@@ -8,7 +8,7 @@ const { getConfig } = storeToRefs(useConfigStore());
 </script>
 
 <template>
-  <div class="gov-footer flex justify-content-between">
+  <div class="gov-footer flex justify-between">
     <div>
       <a
         href="https://www.gov.bc.ca/"
@@ -55,7 +55,7 @@ const { getConfig } = storeToRefs(useConfigStore());
     </div>
     <div
       v-if="getConfig"
-      class="version px-3 py-2"
+      class="version px-4 py-2"
     >
       v{{ getConfig.version }}{{ getConfig.gitRev ? '-' + getConfig.gitRev.substring(0, 8) : '' }}
     </div>
