@@ -1154,7 +1154,7 @@
     };
     const x = 0;
     const isAIAssistantEnabled = Boolean(document.querySelector("[ai-mode]"));
-    const ORCHESTRATOR_API_URL = "https://nraif-671b-dev-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke";
+    const ORCHESTRATOR_API_URL = "https://nraif-671b-dev-showcaseapp-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke";
     const GUIDED_QUESTIONS_ENABLED = false;
     const GUIDED_QUESTIONS_API_URL = new URL("/guided-questions", ORCHESTRATOR_API_URL).toString();
     const THREAD_ID_STORAGE_KEY = "nrAiForm_threadId";
