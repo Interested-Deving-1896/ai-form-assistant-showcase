@@ -16,7 +16,9 @@ onMounted(() => {
   // ----- link to AI Form Assistant client.js -----
   //const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
   const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
-  const exists = Array.from(document.head.querySelectorAll('script')).some((script) => script.src === AIFAS_CLIENT_SRC);
+  const exists = Array.from(document.head.querySelectorAll('script')).some(
+    (script) => script.getAttribute('src') === AIFAS_CLIENT_SRC
+  );
   if (!exists) {
     const script = document.createElement('script');
     script.src = AIFAS_CLIENT_SRC;
@@ -27,6 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <div ai-mode>
   <Message
     v-if="getConfig?.notificationBanner"
     severity="warn"
@@ -45,6 +48,7 @@ onMounted(() => {
     <div class="flex">
       <Button @click="helloStore.helloWorld()">Make an API call to backend</Button>
     </div>
+  </div>
   </div>
 </template>
 <style scoped>
