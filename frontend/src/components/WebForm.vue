@@ -188,7 +188,7 @@ const resetForm = () => {
           <legend>Angler Information</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="dob"
+            data-id="dob_help"
             class="helpLink"
           />
 
@@ -207,7 +207,7 @@ const resetForm = () => {
             <label for="residency">Residency Status</label>
             <div
               v-tooltip="{ value: 'Ask the Assistant' }"
-              data-id="residency"
+              data-id="residency_help"
               class="helpLink"
             />
             <div
@@ -220,7 +220,7 @@ const resetForm = () => {
                 v-model="formData.residency"
                 type="radio"
                 :value="option.value"
-                data-id="residency"
+                :data-id="'residency_' + option.value"
               />
               <label
                 :for="'residency_' + option.value"
@@ -247,7 +247,7 @@ const resetForm = () => {
           <legend>Fishing Licence Type</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="licenceDuration"
+            data-id="licenceDuration_help"
             class="helpLink"
           />
           <label for="licenceDuration">Duration</label>
@@ -314,7 +314,7 @@ const resetForm = () => {
           <legend>Fishing Region</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="location"
+            data-id="location_help"
             class="helpLink"
           />
           <select
@@ -338,7 +338,7 @@ const resetForm = () => {
           <legend>Classified Waters Licence (optional)</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="classifiedWaters"
+            data-id="classifiedWaters_help"
             class="helpLink"
           />
           <div class="checkbox-option">
@@ -374,7 +374,7 @@ const resetForm = () => {
           <legend>Conservation Surcharge Stamps (optional)</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
-            data-id="surcharge"
+            data-id="surcharge_help"
             class="helpLink"
           />
           <div
@@ -387,7 +387,7 @@ const resetForm = () => {
               v-model="formData.surcharge"
               type="checkbox"
               :value="option.value"
-              data-id="surcharge"
+              :data-id="'surcharge_' + option.value"
             />
             <label
               :for="'surcharge_' + option.value"

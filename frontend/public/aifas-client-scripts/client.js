@@ -961,7 +961,7 @@
         if (!pendingGuidedQuestion) return;
         const pendingStepId = pendingGuidedQuestion.stepId;
         pendingGuidedQuestion = null;
-        const currentStep = 'step-0'
+        const currentStep = 'step0'
         if (shouldRestorePendingGuidedQuestion({ stepId: pendingStepId }, currentStep)) {
           refreshGuidedQuestions();
         }
@@ -991,7 +991,7 @@
         sendBtn.classList.remove("wp-chat-send-ready");
         showTyping(true);
         try {
-          const currentStep = 'step-0';
+          const currentStep = 'step0';
           console.log(`Invoking orchestrator with sessionId=${sessionId}, step=${currentStep}, query=${text}`);
           if (currentStep === FormSteps.step0bot) {
             text = `Human verification form query : ${text}`;
