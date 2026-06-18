@@ -8,7 +8,7 @@
 
 // DEV URL
 const ORCHESTRATOR_API_URL = "https://nraif-671b-dev-showcaseapp-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke";
-// const ORCHESTRATOR_API_URL = "http://localhost:8002/invoke";
+//const ORCHESTRATOR_API_URL = "http://localhost:8002/invoke";
 
 let livestockPurposehtml = `<tr class="possegrid">
                                 <td class="possegrid" valign="middle" colspan="1" rowspan="1" style="text-align: left" nowrap=""><span id="PurposeEdit_100536361_100379172_173010900_sp" name="PurposeEdit_100536361_100379172_173010900_sp" class="possegrid" style="text-align: left"><a data-id="PurposeEdit_Livestock and Animal_200_m3/year_173010900" id="PurposeEdit_100536361_100379172_173010900" name="PurposeEdit_100536361_100379172_173010900" class="possegrid" tabindex="14" title="Edit" target="_self" href="javascript:PossePopup('PurposeEdit_100536361_100379172_173010900',
@@ -714,6 +714,7 @@ function injectStyles() {
 
         .wp-chat-welcome {
             background: white;
+            color: #333;
             padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -916,7 +917,7 @@ function initBot() {
                 <div class="wp-chat-welcome">
                     <div class="wp-chat-welcome">
                         <p><strong>How I can help</strong></p>
-                        <p>I'm an AI assistant here to support you with your water licence application. 
+                        <p>I'm an AI assistant here to support you with your fishing licence application. 
                         I can explain terms, clarify what information is needed, and suggest relevant resources based on what you share.
                         </p>
                         <p><strong>Disclaimer</strong></p>
