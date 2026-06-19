@@ -29,7 +29,7 @@ parameters:
     required: true
   - name: SOURCE_GIT_REF
     description: Git branch, tag, or commit to build
-    value: main
+    value: dev-AA-clientjs
     required: true
   - name: OUTPUT_TAG
     description: ImageStream tag the build pushes to

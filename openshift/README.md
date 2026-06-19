@@ -21,43 +21,64 @@ build -> aifas-app:latest      --oc tag--> :dev --oc tag--> :test --oc tag--> :p
 > Namespace prefix below is `1dca6b` (from `.github/workflows/on-push.yaml`).
 > Builds live in `1dca6b-tools`; adjust if yours differs.
 
+> [!IMPORTANT]
+> These `.yaml` files are OpenShift **Templates**. `oc apply -f app.bc.yaml` only
+> stores the Template object — it does **not** create the BuildConfig/ImageStream.
+> You must `oc process` first, then pipe to `oc apply`. (Commands below are
+> PowerShell; on bash use `$TOOLS` instead of `1dca6b-tools` inline.)
+
 ## 1. Create the builds + imagestreams (tools namespace)
 
-```bash
-TOOLS=1dca6b-tools
+```powershell
+# Run from the openshift/ folder. Defaults to the dev-AA-clientjs branch;
+# add -p SOURCE_GIT_REF=<branch/tag> to override.
+oc process -f .\app.bc.yaml | oc apply -n 1dca6b-tools -f -
+oc process -f .\frontend.bc.yaml | oc apply -n 1dca6b-tools -f -
+```
 
-# Frontend (defaults to main; pass SOURCE_GIT_REF=<branch/tag> to override)
-oc process -f openshift/frontend.bc.yaml \
-  -p SOURCE_GIT_REF=main | oc apply -n "$TOOLS" -f -
+Verify the objects were created (not just a stored Template):
 
-# Backend
-oc process -f openshift/app.bc.yaml \
-  -p SOURCE_GIT_REF=main | oc apply -n "$TOOLS" -f -
+```powershell
+oc get bc,is -n 1dca6b-tools
 ```
 
 ## 2. Run a build
 
-```bash
-TOOLS=1dca6b-tools
-oc start-build aifas-frontend -n "$TOOLS" --follow
-oc start-build aifas-app      -n "$TOOLS" --follow
+```powershell
+oc start-build aifas-app -n 1dca6b-tools --follow
+oc start-build aifas-frontend -n 1dca6b-tools --follow
 ```
 
 ## 3. Promote across environments (creates the dev/test/prod tags)
 
-```bash
-TOOLS=1dca6b-tools
+Run `oc tag` only **after** a successful build, so `:latest` exists. Each command
+copies the current image to the next tag (a static snapshot — it does not move on
+later builds).
 
-# Frontend
-oc tag "$TOOLS/aifas-frontend:latest" "$TOOLS/aifas-frontend:dev"  -n "$TOOLS"
-oc tag "$TOOLS/aifas-frontend:dev"    "$TOOLS/aifas-frontend:test" -n "$TOOLS"
-oc tag "$TOOLS/aifas-frontend:test"   "$TOOLS/aifas-frontend:prod" -n "$TOOLS"
+```powershell
+# --- dev (promote latest -> dev) ---
+oc tag 1dca6b-tools/aifas-app:latest 1dca6b-tools/aifas-app:dev -n 1dca6b-tools
+oc tag 1dca6b-tools/aifas-frontend:latest 1dca6b-tools/aifas-frontend:dev -n 1dca6b-tools
 
-# Backend
-oc tag "$TOOLS/aifas-app:latest" "$TOOLS/aifas-app:dev"  -n "$TOOLS"
-oc tag "$TOOLS/aifas-app:dev"    "$TOOLS/aifas-app:test" -n "$TOOLS"
-oc tag "$TOOLS/aifas-app:test"   "$TOOLS/aifas-app:prod" -n "$TOOLS"
+# --- test (promote dev -> test) ---
+oc tag 1dca6b-tools/aifas-app:dev 1dca6b-tools/aifas-app:test -n 1dca6b-tools
+oc tag 1dca6b-tools/aifas-frontend:dev 1dca6b-tools/aifas-frontend:test -n 1dca6b-tools
+
+# --- prod (promote test -> prod) ---
+oc tag 1dca6b-tools/aifas-app:test 1dca6b-tools/aifas-app:prod -n 1dca6b-tools
+oc tag 1dca6b-tools/aifas-frontend:test 1dca6b-tools/aifas-frontend:prod -n 1dca6b-tools
 ```
+
+Confirm the tags:
+
+```powershell
+oc describe is aifas-app -n 1dca6b-tools
+oc get istag -n 1dca6b-tools | findstr "dev test prod"
+```
+
+> Add `--alias=true` to an `oc tag` if you want that tag to **track** `latest`
+> automatically on every new build instead of being a static snapshot. The default
+> (no flag) is the static promotion most BC Gov flows want.
 
 Deployments in the env namespaces (`1dca6b-dev`, `1dca6b-test`, `1dca6b-prod`)
 reference the matching tag, e.g.:
@@ -81,3 +102,6 @@ image-registry.openshift-image-registry.svc:5000/1dca6b-tools/aifas-app:dev
   `BACKEND_ORIGIN=http://aifas-app:8080`.
 - Tag-based deploys: add an `ImageChange` trigger on the env Deployment, or
   re-`oc tag` to roll forward.
+- If you accidentally ran `oc apply -f *.bc.yaml` directly, it created stored
+  Template objects. Remove them with:
+  `oc delete template aifas-app-build aifas-frontend-build -n 1dca6b-tools`
