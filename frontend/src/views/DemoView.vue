@@ -14,16 +14,34 @@ const { getHello } = storeToRefs(helloStore);
 
 onMounted(() => {
   // ----- link to AI Form Assistant client.js -----
+  // config.js sets window.AIFAS_CONFIG (ORCHESTRATOR_API_URL from the deployed ConfigMap)
+  // and MUST load before client.js. In local `vite` dev it 404s (no nginx envsubst), so we
+  // proceed to client.js on error too — client.js then uses its hardcoded dev fallback.
   //const AIFAS_CLIENT_SRC = 'https://aiformclient-drfvhdfzascbfkh5.a01.azurefd.net/scripts/tenants/fish/client.js';
+  const AIFAS_CONFIG_SRC = '/aifas-client-scripts/config.js';
   const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
-  const exists = Array.from(document.head.querySelectorAll('script')).some(
-    (script) => script.getAttribute('src') === AIFAS_CLIENT_SRC
-  );
-  if (!exists) {
+
+  const alreadyLoaded = (src: string) =>
+    Array.from(document.head.querySelectorAll('script')).some(
+      (script) => script.getAttribute('src') === src
+    );
+
+  const loadScript = (src: string, onDone: () => void) => {
+    if (alreadyLoaded(src)) {
+      onDone();
+      return;
+    }
     const script = document.createElement('script');
-    script.src = AIFAS_CLIENT_SRC;
-    script.async = true;
+    script.src = src;
+    script.async = false; // preserve config.js -> client.js execution order
+    script.onload = onDone;
+    script.onerror = onDone;
     document.head.appendChild(script);
+  };
+
+  if (!alreadyLoaded(AIFAS_CLIENT_SRC)) {
+    // Load config first, then client.js (runs regardless of whether config loaded).
+    loadScript(AIFAS_CONFIG_SRC, () => loadScript(AIFAS_CLIENT_SRC, () => {}));
   }
 });
 </script>
