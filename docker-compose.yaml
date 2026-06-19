@@ -54,6 +54,8 @@ services:
     environment:
       # nginx proxies /api and /config here (compose service name on the shared network).
       BACKEND_ORIGIN: "http://app:8080"
+      # Injected into the embedded client.js via /aifas-client-scripts/config.js.
+      ORCHESTRATOR_API_URL: "${ORCHESTRATOR_API_URL:-https://nraif-671b-dev-showcaseapp-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke}"
     depends_on:
       app:
         condition: service_healthy

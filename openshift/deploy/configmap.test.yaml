@@ -25,3 +25,11 @@ data:
   SERVER_OIDC_SERVERURL: "https://test.loginproxy.gov.bc.ca/auth"
   SERVER_OIDC_REALM: "standard"
   SERVER_PORT: "8080"
+
+  # --- Frontend (nginx) runtime config ---
+  # ORCHESTRATOR_API_URL is injected into the embedded client.js via
+  # /aifas-client-scripts/config.js. Edit it here and restart the frontend
+  # Deployment to change it without rebuilding/redeploying the image:
+  #   oc set data configmap/aifas-config ORCHESTRATOR_API_URL=<new-url> -n 1dca6b-test
+  #   oc rollout restart deploy/aifas-frontend -n 1dca6b-test
+  ORCHESTRATOR_API_URL: "https://aifas-frontend-1dca6b-test.apps.silver.devops.gov.bc.ca"

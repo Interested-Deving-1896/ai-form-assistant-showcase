@@ -38,6 +38,14 @@ spec:
             # nginx proxies /api and /config to the backend Service in this namespace.
             - name: BACKEND_ORIGIN
               value: "http://aifas-app:8080"
+            # Parameterized via the aifas-config ConfigMap — change the URL there and
+            # `oc rollout restart deploy/aifas-frontend` to apply (no image rebuild).
+            # Injected into the embedded client.js via /aifas-client-scripts/config.js.
+            - name: ORCHESTRATOR_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: aifas-config
+                  key: ORCHESTRATOR_API_URL
           readinessProbe:
             httpGet:
               path: /

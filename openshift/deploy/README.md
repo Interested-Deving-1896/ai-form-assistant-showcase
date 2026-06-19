@@ -82,6 +82,30 @@ oc rollout restart deploy/aifas-app      -n 1dca6b-test
 oc rollout restart deploy/aifas-frontend -n 1dca6b-test
 ```
 
+## Changing the Orchestrator URL after deploy
+
+`ORCHESTRATOR_API_URL` is **parameterized via the `aifas-config` ConfigMap** (not baked
+into the image or the Deployment). The frontend reads it through `configMapKeyRef` and
+serves it to the embedded `client.js` at `/aifas-client-scripts/config.js`.
+
+To change it on a running deployment — no rebuild, no re-tag:
+
+```powershell
+# 1. Update the value in the ConfigMap
+oc set data configmap/aifas-config ORCHESTRATOR_API_URL=https://new-orchestrator/invoke -n 1dca6b-test
+
+# 2. Restart the frontend so the new pod picks it up
+oc rollout restart deploy/aifas-frontend -n 1dca6b-test
+
+# 3. Verify the served config reflects the new value
+oc rollout status deploy/aifas-frontend -n 1dca6b-test
+curl -s https://<route-host>/aifas-client-scripts/config.js
+```
+
+> ConfigMap env vars are read **only at pod startup** — editing the ConfigMap does NOT
+> update running pods. The `oc rollout restart` in step 2 is required for the change to
+> take effect.
+
 ## Design notes
 
 - **Single external Route → frontend only.** The backend has no Route; it is reached
