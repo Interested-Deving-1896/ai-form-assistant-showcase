@@ -3,12 +3,20 @@
 
 
 //-------------------------- Services Starts ---------------------------//
-// TEST URL
-// const ORCHESTRATOR_API_URL = "https://nraif-671b-test-api.ambitiousmeadow-949bd8c6.canadacentral.azurecontainerapps.io/invoke";
-
-// DEV URL
-const ORCHESTRATOR_API_URL = "https://nraif-671b-dev-showcaseapp-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke";
-//const ORCHESTRATOR_API_URL = "http://localhost:8002/invoke";
+// ORCHESTRATOR_API_URL is provided at runtime via `window.AIFAS_CONFIG`, generated
+// from the ORCHESTRATOR_API_URL environment variable and served by the frontend at
+// /aifas-client-scripts/config.js (see frontend/default.conf.template). Include that
+// script BEFORE this one in the host page:
+//   <script src="https://<frontend-host>/aifas-client-scripts/config.js"></script>
+//   <script src="https://<frontend-host>/aifas-client-scripts/client.js"></script>
+// The hardcoded fallback is only used for local `vite` dev, where no config.js is served.
+//
+//   TEST  : https://nraif-671b-test-api.ambitiousmeadow-949bd8c6.canadacentral.azurecontainerapps.io/invoke
+//   DEV   : https://nraif-671b-dev-showcaseapp-api.icymushroom-bc5ec66d.canadacentral.azurecontainerapps.io/invoke
+//   LOCAL : http://localhost:8002/invoke
+const ORCHESTRATOR_API_URL =
+    (globalThis.AIFAS_CONFIG && globalThis.AIFAS_CONFIG.ORCHESTRATOR_API_URL) ||
+    "http://localhost:8002/invoke";
 
 let livestockPurposehtml = `<tr class="possegrid">
                                 <td class="possegrid" valign="middle" colspan="1" rowspan="1" style="text-align: left" nowrap=""><span id="PurposeEdit_100536361_100379172_173010900_sp" name="PurposeEdit_100536361_100379172_173010900_sp" class="possegrid" style="text-align: left"><a data-id="PurposeEdit_Livestock and Animal_200_m3/year_173010900" id="PurposeEdit_100536361_100379172_173010900" name="PurposeEdit_100536361_100379172_173010900" class="possegrid" tabindex="14" title="Edit" target="_self" href="javascript:PossePopup('PurposeEdit_100536361_100379172_173010900',
