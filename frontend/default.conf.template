@@ -1,0 +1,53 @@
+# nginx-unprivileged SPA host for the AIFAS frontend.
+# Rendered at container start by the official envsubst entrypoint
+# (/etc/nginx/templates/*.template -> /etc/nginx/conf.d/). ${BACKEND_ORIGIN}
+# is the only substituted variable; nginx runtime vars ($uri, $host, ...) are
+# left untouched because they are not present in the environment.
+server {
+    listen       8080;
+    server_name  _;
+    root         /usr/share/nginx/html;
+    index        index.html;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+
+    # Runtime config for the embedded client.js. ${ORCHESTRATOR_API_URL} is substituted
+    # at container start by the nginx envsubst entrypoint, so the value comes from the
+    # ORCHESTRATOR_API_URL env var without rebuilding the image. The host page must load
+    # this before client.js so window.AIFAS_CONFIG is set first.
+    location = /aifas-client-scripts/config.js {
+        default_type application/javascript;
+        add_header Cache-Control "no-store";
+        return 200 'window.AIFAS_CONFIG={"ORCHESTRATOR_API_URL":"${ORCHESTRATOR_API_URL}"};';
+    }
+
+    # Backend API + runtime frontend config endpoint
+    location /api {
+        proxy_pass ${BACKEND_ORIGIN};
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /config {
+        proxy_pass ${BACKEND_ORIGIN};
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Long-cache fingerprinted assets emitted by Vite
+    location /assets/ {
+        try_files $uri =404;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # SPA client-side routing fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

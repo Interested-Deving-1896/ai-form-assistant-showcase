@@ -23,6 +23,9 @@ export default defineConfig({
       }
     }
   },
+  build: {
+    modulePreload: { polyfill: false }
+  },
   plugins: [vue(), vueJsx(), tailwindcss()],
   resolve: {
     alias: {
