@@ -22,7 +22,7 @@ onMounted(() => {
   >
     <DemoDisclaimerBanner />
 
-    <div class="px-6 lg:px-16 w-full max-w-[1600px]">
+    <div class="px-6 lg:px-16 w-full max-w-[1600px] pb-30">
       <WebForm />
     </div>
   </div>

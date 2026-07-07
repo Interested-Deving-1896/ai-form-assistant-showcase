@@ -1,10 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const isVisible = ref(true);
+</script>
 
 <template>
-  <div class="demo-disclaimer">
-    <div class="demo-disclaimer-content flex gap-3 py-3 px-6 lg:px-16">
+  <div
+    v-if="isVisible"
+    class="demo-disclaimer"
+  >
+    <div class="demo-disclaimer-content flex items-start gap-3 py-3 px-6 lg:px-16">
       <i class="pi pi-info-circle demo-disclaimer-icon" />
-      <div>
+      <div class="grow">
         <p class="demo-disclaimer-title">Demonstration Only</p>
         <p class="demo-disclaimer-text">
           This webform is intended for demonstration of AI forms-assist
@@ -14,19 +21,26 @@
           existing licensing or permitting platforms. It is intended solely to showcase AI Forms-Assist capabilities.
         </p>
       </div>
+      <button
+        type="button"
+        class="demo-disclaimer-close"
+        aria-label="Close"
+        @click="isVisible = false"
+      >
+        <i class="pi pi-times" />
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
 .demo-disclaimer {
-  background-color: #fcba19;
-  color: #2d2d2d;
+  background-color: var(--bc-gold);
+  color: var(--bc-text);
 }
 
 .demo-disclaimer-content {
   max-width: 1600px;
-  /* padding: 1rem 4.25rem; */
 }
 
 .demo-disclaimer-icon {
@@ -41,5 +55,20 @@
 
 .demo-disclaimer-text {
   margin: 0;
+}
+
+.demo-disclaimer-close {
+  background: none;
+  border: none;
+  color: var(--bc-text);
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.demo-disclaimer-close:hover {
+  opacity: 0.7;
 }
 </style>

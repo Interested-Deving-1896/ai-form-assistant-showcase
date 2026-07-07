@@ -4,6 +4,7 @@
 
   /* BC Design System tokens */
   --bc-blue: #013366;
+  --bc-gold: #fcba19;
   --bc-blue-hover: #1e5189;
   --bc-link: #255a90;
   --bc-text: #2d2d2d;
@@ -123,6 +124,7 @@ label {
 .gov-footer {
   background-color: #003366 !important;
   border-top: 2px solid #fcba19;
+  min-height: 3rem;
   a {
     display: inline-block;
     padding: 0.5rem 1rem;

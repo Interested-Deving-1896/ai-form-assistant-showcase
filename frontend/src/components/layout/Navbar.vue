@@ -16,6 +16,12 @@ const { getIsAuthenticated } = storeToRefs(useAuthStore());
           <li>
             <router-link :to="{ name: RouteNames.HOME }">Home</router-link>
           </li>
+          <li>
+            <router-link :to="{ name: RouteNames.AI_FORM_ASSIST }">AI Form Assist</router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: RouteNames.ARCHITECTURE }">Architecture</router-link>
+          </li>
           <li v-if="getIsAuthenticated">
             <router-link :to="{ name: RouteNames.DEMO }">Demo</router-link>
           </li>
@@ -27,7 +33,7 @@ const { getIsAuthenticated } = storeToRefs(useAuthStore());
 
 <style lang="scss" scoped>
 .navigation-main {
-  background-color: #38598a;
+  background-color: #1a5a96;
   color: #fcba19;
   display: flex;
   width: 100%;
@@ -35,7 +41,7 @@ const { getIsAuthenticated } = storeToRefs(useAuthStore());
   -webkit-box-shadow: 0 6px 8px -4px #b3b1b3;
   -moz-box-shadow: 0 6px 8px -4px #b3b1b3;
   .p-toolbar {
-    background-color: #38598a !important;
+    background-color: #1a5a96 !important;
     border: none;
     padding: 0;
     ol {

@@ -43,7 +43,7 @@ function logout() {
 button {
   color: white !important;
   &:hover {
-    color: var(--bc-blue) !important;
+    background-color: transparent !important;
   }
 }
 </style>

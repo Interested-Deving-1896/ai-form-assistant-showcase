@@ -538,7 +538,7 @@ const resetForm = () => {
 
 <style scoped>
 .form-container {
-  max-width: 800px;
-  color: #2d2d2d;
+  max-width: 900px;
+  color: var(--bc-text);
 }
 </style>
