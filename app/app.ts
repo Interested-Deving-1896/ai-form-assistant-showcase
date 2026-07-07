@@ -2,7 +2,7 @@ import compression from 'compression';
 import config from 'config';
 import cors from 'cors';
 import express from 'express';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import { join } from 'path';
 // @ts-expect-error api-problem lacks a defined interface; code still works fine
 import Problem from 'api-problem';
@@ -30,28 +30,28 @@ app.use(compression());
 app.use(cors(DEFAULTCORS));
 app.use(express.json({ limit: config.get('server.bodyLimit') }));
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'", new URL(config.get('frontend.oidc.authority')).origin], // eslint-disable-line
-        connectSrc: [
-          "'self'", // eslint-disable-line
-          new URL(config.get('frontend.oidc.authority')).origin,
-          'https://orchestrator-agent-1dca6b-dev.apps.silver.devops.gov.bc.ca',
-          'https://orchestrator-agent-1dca6b-test.apps.silver.devops.gov.bc.ca',
-          'https://orchestrator-agent-1dca6b-prod.apps.silver.devops.gov.bc.ca'
-        ],
-        scriptSrc: [
-          "'self'", // eslint-disable-line
-          'https://jsclientdev-esdyd6g2cnh3fcen.a02.azurefd.net',
-          'https://jsclienttest-esdyd6g2cnh3fcen.a02.azurefd.net',
-          'https://jsclientprod-esdyd6g2cnh3fcen.a02.azurefd.net'
-        ]
-      }
-    }
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'", new URL(config.get('frontend.oidc.authority')).origin], // eslint-disable-line
+//         connectSrc: [
+//           "'self'", // eslint-disable-line
+//           new URL(config.get('frontend.oidc.authority')).origin,
+//           'https://orchestrator-agent-1dca6b-dev.apps.silver.devops.gov.bc.ca',
+//           'https://orchestrator-agent-1dca6b-test.apps.silver.devops.gov.bc.ca',
+//           'https://orchestrator-agent-1dca6b-prod.apps.silver.devops.gov.bc.ca'
+//         ],
+//         scriptSrc: [
+//           "'self'", // eslint-disable-line
+//           'https://jsclientdev-esdyd6g2cnh3fcen.a02.azurefd.net',
+//           'https://jsclienttest-esdyd6g2cnh3fcen.a02.azurefd.net',
+//           'https://jsclientprod-esdyd6g2cnh3fcen.a02.azurefd.net'
+//         ]
+//       }
+//     }
+//   })
+// );
 
 // Skip if running tests
 if (process.env.NODE_ENV !== 'test') {
