@@ -3,7 +3,7 @@ import { RouteNames } from '@/utils/constants';
 </script>
 <template>
   <div class="w-full max-w-[1600px]">
-    <section class="mt-4 border-l-4 border-[var(--bc-blue)] bg-[var(--bc-surface-light)] p-6">
+    <section class="mt-4 border-l-4 border-[var(--bc-blue)] bg-[var(--bc-surface-light)] px-6 pt-2 pb-4">
       <h1>AI Forms-Assist</h1>
       <p class="mt-4 text-lg text-[var(--bc-text-secondary)]">
         Helping people complete government applications with confidence through AI-powered guidance, while improving

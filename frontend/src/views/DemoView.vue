@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 
 import DemoDisclaimerBanner from '@/components/DemoDisclaimerBanner.vue';
 import WebForm from '@/components/WebForm.vue';
+import WebFormResources from '@/components/WebFormResources.vue';
 
 const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
 
@@ -23,7 +24,14 @@ onMounted(() => {
     <DemoDisclaimerBanner />
 
     <div class="px-6 lg:px-16 w-full max-w-[1600px] pb-30">
-      <WebForm />
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-8">
+          <WebForm />
+        </div>
+        <div class="col-span-3 col-start-10 mt-22">
+          <WebFormResources />
+        </div>
+      </div>
     </div>
   </div>
 </template>
