@@ -36,6 +36,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'AI Form Assist' }
   },
   {
+    path: '/ai-form-assist/architecture',
+    name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE,
+    component: () => import('@/views/AiFormAssistArchitecture.vue'),
+    meta: { title: 'AI Form Assist Architecture' }
+  },
+  {
     path: '/architecture',
     name: RouteNames.ARCHITECTURE,
     component: () => import('@/views/ArchitectureView.vue'),

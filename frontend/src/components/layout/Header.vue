@@ -17,7 +17,7 @@ import { LoginButton } from '@/components/layout';
           </a>
         </div>
         <div class="flex grow ml-2">
-          <h2 class="m-0 mx-2">AI Showcase</h2>
+          <h2 class="m-0 mx-2">AI Common Service</h2>
         </div>
         <div class="flex flex-none lg:mr-12 ml-2">
           <LoginButton />

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouteNames } from '@/utils/constants';
+</script>
 <template>
   <div class="w-full max-w-[1600px]">
     <section class="mt-4 border-l-4 border-[var(--bc-blue)] bg-[var(--bc-surface-light)] p-6">
@@ -116,7 +118,17 @@
             </div>
             <h4 class="m-0">Multi-Agent Architecture</h4>
           </div>
-          <p class="mt-2 text-[var(--bc-text)]">Combines specialized AI agents that mirror subject matter expertise.</p>
+          <p class="mt-2 text-[var(--bc-text)]">
+            A multi-tenanted agentic framework -
+            <br />
+            <router-link
+              :to="{ name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE }"
+              class=""
+            >
+              View the architecture
+            </router-link>
+            .
+          </p>
         </div>
       </div>
     </section>
