@@ -30,6 +30,24 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true, title: 'Demo' }
   },
   {
+    path: '/ai-form-assist',
+    name: RouteNames.AI_FORM_ASSIST,
+    component: () => import('@/views/AiFormAssistView.vue'),
+    meta: { title: 'AI Form Assist' }
+  },
+  {
+    path: '/ai-form-assist/architecture',
+    name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE,
+    component: () => import('@/views/AiFormAssistArchitecture.vue'),
+    meta: { title: 'AI Form Assist Architecture' }
+  },
+  {
+    path: '/architecture',
+    name: RouteNames.ARCHITECTURE,
+    component: () => import('@/views/ArchitectureView.vue'),
+    meta: { title: 'Architecture' }
+  },
+  {
     path: '/developer',
     name: RouteNames.DEVELOPER,
     component: () => import('@/views/DeveloperView.vue'),

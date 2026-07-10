@@ -7,6 +7,9 @@ export const DELIMITER = '/';
  * Route names
  */
 export const RouteNames = Object.freeze({
+  AI_FORM_ASSIST: 'ai-form-assist',
+  AI_FORM_ASSIST_ARCHITECTURE: 'ai-form-assist-architecture',
+  ARCHITECTURE: 'architecture',
   CALLBACK: 'callback',
   DEVELOPER: 'developer',
   FORBIDDEN: 'forbidden',

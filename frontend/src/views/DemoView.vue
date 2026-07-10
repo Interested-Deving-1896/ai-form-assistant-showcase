@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import { Button, Message } from '@/lib/primevue';
-import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
+import DemoDisclaimerBanner from '@/components/DemoDisclaimerBanner.vue';
 import WebForm from '@/components/WebForm.vue';
-
-import { useConfigStore, useHelloStore } from '@/store';
-
-// Store
-const helloStore = useHelloStore();
-const { getConfig } = storeToRefs(useConfigStore());
-const { getHello } = storeToRefs(helloStore);
+import WebFormResources from '@/components/WebFormResources.vue';
 
 const AIFAS_CLIENT_SRC = '/aifas-client-scripts/client.js';
 
@@ -24,30 +17,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ai-mode>
-    <Message
-      v-if="getConfig?.notificationBanner"
-      severity="warn"
-    >
-      {{ getConfig?.notificationBanner }}
-    </Message>
+  <div
+    ai-mode
+    class="-mx-6 lg:-mx-16 -my-6 lg:-my-6"
+  >
+    <DemoDisclaimerBanner />
 
-    <WebForm />
-
-    <div class="flex flex-col api-test">
-      <div class="flex">
-        <h4 class="font-bold">
-          {{ getHello }}
-        </h4>
-      </div>
-      <div class="flex">
-        <Button @click="helloStore.helloWorld()">Make an API call to backend</Button>
+    <div class="px-6 lg:px-16 w-full max-w-[1600px] pb-30">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-8">
+          <WebForm />
+        </div>
+        <div class="col-span-3 col-start-10 mt-22">
+          <WebFormResources />
+        </div>
       </div>
     </div>
   </div>
 </template>
-<style scoped>
-.api-test {
-  display: none !important;
-}
-</style>
+
+<style scoped lang="scss"></style>

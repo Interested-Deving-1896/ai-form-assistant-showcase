@@ -613,7 +613,7 @@ function injectStyles() {
             right: 20px;
             z-index: 99998;
             padding: 14px 24px;
-            background: #003366;
+            background: #1a5a96;
             color: white;
             border: none;
             border-radius: 25px;
@@ -656,7 +656,7 @@ function injectStyles() {
 
         .wp-chat-header {
             padding: 16px 20px;
-            background: #003366;
+            background: #1a5a96;
             color: white;
             display: flex;
             justify-content: space-between;
@@ -752,7 +752,7 @@ function injectStyles() {
         }
 
         .wp-chat-message-user .wp-chat-bubble {
-            background: #003366;
+            background: #1a5a96;
             color: white;
             border-bottom-right-radius: 4px;
         }
@@ -841,7 +841,7 @@ function injectStyles() {
         }
 
         .wp-chat-input:focus {
-            border-color: #003366;
+            border-color: #1a5a96;
         }
 
         .wp-chat-send {
@@ -856,7 +856,7 @@ function injectStyles() {
         }
 
         .wp-chat-send-ready, .wp-chat-send:hover {
-            background: #004080;
+            background: #1a5a96;
             transform: translateX(2px);
         }
 
@@ -896,16 +896,11 @@ function initBot() {
 
   const container = document.createElement('div');
   container.innerHTML = `
-        <button class="wp-chat-button" id="wp-chat-button">Assistant</button>
+        <button class="wp-chat-button" id="wp-chat-button">Form Helper</button>
         <div class="wp-chat-modal" id="wp-chat-modal">
             <div class="wp-chat-header">
                 <div class="wp-chat-title">
-                    <img
-                        class="wp-chat-title-image"
-                        src="https://test.j200.gov.bc.ca/pub/delivery/vfcbc/Images/banners/vfcbc_banner.png?v=5797"
-                        alt="AI Assistant"
-                    />
-                    <span>AI Assistant</span>
+                    <span>Form Helper</span>
                 </div>
                 <button class="wp-chat-close" id="wp-chat-close" type="button">
                     &times;
