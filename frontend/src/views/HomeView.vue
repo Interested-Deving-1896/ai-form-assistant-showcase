@@ -15,8 +15,8 @@
       </a>
     </section>
 
-    <section class="border-t border-[var(--bc-border)] py-10">
-      <h2>What is the AI Common Service?</h2>
+    <section class="border-t border-[var(--bc-border)] py-4">
+      <h3>What is the AI Common Service?</h3>
       <p class="mt-2 text-[var(--bc-text)]">
         The AI Common Service provides ministries and government teams with access to enterprise AI capabilities through
         a shared platform managed by the Economic Opportunities division within CSBC. Instead of building and
@@ -29,8 +29,8 @@
       </p>
     </section>
 
-    <section class="border-t border-[var(--bc-border)] py-10">
-      <h2>Benefits for Program Areas</h2>
+    <section class="border-t border-[var(--bc-border)] py-4">
+      <h3>Benefits for Program Areas</h3>
       <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
           <div class="flex items-center gap-3">
@@ -118,8 +118,8 @@
       </div>
     </section>
 
-    <section class="border-t border-[var(--bc-border)] py-10">
-      <h2>How It Works</h2>
+    <section class="border-t border-[var(--bc-border)] py-4">
+      <h3>How It Works</h3>
       <ol class="mt-6 list-decimal space-y-2 pl-6 text-[var(--bc-text)]">
         <li>
           <strong>Onboard Your Team</strong>
@@ -145,8 +145,8 @@
         </li>
       </ol>
     </section>
-    <section class="border-t border-[var(--bc-border)] py-10">
-      <h2>Governance and Oversight</h2>
+    <section class="border-t border-[var(--bc-border)] py-4">
+      <h3>Governance and Oversight</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         The AI Common Service is operated by the Common Services Team and includes monitoring, audit logging, usage
         tracking, and cost management capabilities. Departments maintain control of their data while benefiting from
@@ -158,7 +158,7 @@
       id="get-started"
       class="my-10 rounded border-l-4 border-[var(--bc-gold)] bg-[var(--bc-surface-light)] p-6"
     >
-      <h2>Ready to Explore AI for Your Program Area?</h2>
+      <h3>Ready to Explore AI for Your Program Area?</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         Whether you are evaluating an AI opportunity, building a proof of concept, or scaling an existing solution, the
         AI Common Service provides a secure foundation for government AI initiatives.

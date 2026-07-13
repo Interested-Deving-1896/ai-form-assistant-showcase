@@ -17,7 +17,7 @@ import { RouteNames } from '@/utils/constants';
       </router-link>
     </section>
 
-    <section class="border-t border-[var(--bc-border)] py-10">
+    <section class="border-t border-[var(--bc-border)] py-4">
       <h3 class="mt-12">How AI Form-Assist Works</h3>
       <h6 class="m-0 text-[var(--bc-text)]">Common Service</h6>
       <p class="mt-1 text-[var(--bc-text)]">
@@ -145,8 +145,8 @@ import { RouteNames } from '@/utils/constants';
       </div>
     </section>
 
-    <section class="border-t border-[var(--bc-border)] py-8">
-      <h2>Built for Cross-Government Adoption</h2>
+    <section class="border-t border-[var(--bc-border)] py-6">
+      <h3>Built for Cross-Government Adoption</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         AI Forms-Assist is designed as a reusable platform that can support a wide range of government programs and
         permitting processes.

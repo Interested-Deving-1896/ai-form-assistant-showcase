@@ -12,7 +12,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h2>Overview</h2>
+      <h3>Overview</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         AI Form-Assist is designed as a scalable, multi-tenant architecture that enables organizations and government
         programs to deliver AI-assisted form completion experiences without modifying underlying business systems. The
@@ -22,7 +22,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-2">
-      <h2>Architecture Diagram</h2>
+      <h3>Architecture Diagram</h3>
       <div
         class="mt-6 flex items-center justify-center rounded border border-dashed border-[var(--bc-border)] bg-white p-10 text-sm text-[var(--bc-text-secondary)]"
       >
@@ -45,7 +45,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h2>How It Works</h2>
+      <h3>How It Works</h3>
       <ol class="mt-6 list-decimal space-y-2 pl-6 text-[var(--bc-text)]">
         <li>A client web application sends a request to the public API.</li>
         <li>
@@ -62,7 +62,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] pb-6">
-      <h2>Orchestrator Agent</h2>
+      <h3>Orchestrator Agent</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         The Orchestrator Agent serves as the central intelligence layer of the platform. It receives requests from the
         API, applies tenant-specific context, and directs user interactions to specialized AI agents. This approach
@@ -72,7 +72,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] pb-6">
-      <h2>Specialized AI Agents</h2>
+      <h3>Specialized AI Agents</h3>
       <div class="my-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
           <div class="flex items-center gap-3">
@@ -107,7 +107,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)] pb-6">
-      <h2>Core Platform Components</h2>
+      <h3>Core Platform Components</h3>
       <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
           <div class="flex items-center gap-3">
@@ -168,7 +168,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="border-t border-[var(--bc-border)]">
-      <h2>Key Benefits</h2>
+      <h3>Key Benefits</h3>
       <ul class="mt-4 list-disc pl-6 text-[var(--bc-text)]">
         <li>Multi-tenant architecture supporting multiple clients and programs</li>
         <li>Centralized AI orchestration with specialized agent routing</li>
@@ -180,7 +180,7 @@ import architectureDiagram from '@/assets/images/ai-form-assist-architecture.jpg
     </section>
 
     <section class="my-10 rounded border-l-4 border-[var(--bc-gold)] bg-[var(--bc-surface-light)] px-6 py-2">
-      <h2>Architecture Summary</h2>
+      <h3>Architecture Summary</h3>
       <p class="mt-6 text-[var(--bc-text)]">
         AI Form-Assist combines tenant-aware orchestration, specialized AI agents, Azure AI Search, Cosmos DB, and Blob
         Storage into a single reusable platform. This architecture enables organizations to rapidly deploy intelligent
