@@ -100,7 +100,7 @@ const isFeeCalculationVisible = ref(false);
       :style="{ width: '40rem' }"
     >
       <p class="m-0">
-        A Form Definition (JSON schema) tells the AI Form Assistant about the webform and data structure. It is used to
+        A Form Definition (JSON schema) tells the AI Form-Assistant about the webform and data structure. It is used to
         instruct the Assistant with AI prompts and provides more 'context' for each form field.
       </p>
       <pre><code>{{ JSON.stringify(formDefinition, null, 2) }}</code></pre>
@@ -114,7 +114,7 @@ const isFeeCalculationVisible = ref(false);
       :style="{ width: '40rem' }"
     >
       <p class="m-0">
-        A Prompt Template is a text file that contains the instructions and guidelines for how the AI Form Assistant
+        A Prompt Template is a text file that contains the instructions and guidelines for how the AI Form-Assistant
         should generate responses. It often includes placeholders for dynamic content, such as form data or user input,
         and is used to ensure that the Assistant's responses are relevant, accurate, and consistent with the desired
         tone.

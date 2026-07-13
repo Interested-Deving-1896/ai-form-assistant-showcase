@@ -33,13 +33,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/ai-form-assist',
     name: RouteNames.AI_FORM_ASSIST,
     component: () => import('@/views/AiFormAssistView.vue'),
-    meta: { title: 'AI Form Assist' }
+    meta: { title: 'AI Form-Assist' }
   },
   {
     path: '/ai-form-assist/architecture',
     name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE,
     component: () => import('@/views/AiFormAssistArchitecture.vue'),
-    meta: { title: 'AI Form Assist Architecture' }
+    meta: { title: 'AI Form-Assist Architecture' }
   },
   {
     path: '/architecture',
@@ -126,7 +126,7 @@ export default function getRouter() {
 
   router.afterEach((to) => {
     // Update document title
-    document.title = to.meta.title ? `AI Form Assistant showcase - ${to.meta.title}` : 'AI Form Assistant showcase';
+    document.title = to.meta.title ? `AI Form-Assistant showcase - ${to.meta.title}` : 'AI Form-Assistant showcase';
 
     appStore.endDeterminateLoading();
   });

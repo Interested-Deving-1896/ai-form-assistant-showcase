@@ -80,11 +80,13 @@ const resetForm = () => {
 </script>
 <template>
   <div class="form-container">
-    <h1 class="m-0">AI Form Assist Demo</h1>
+    <h1 class="m-0">AI Form-Assist Demo</h1>
 
     <h2>Sample Permit Application (the webform)</h2>
     <p>
-      For this demo, we'll simulate the experience of someone applying for a fishing licence.
+      For this demo, we'll simulate the experience of someone applying for a
+      <strong>fishing licence</strong>
+      .
       <br />
       For information on freshwater fishing
       <a
@@ -192,7 +194,7 @@ const resetForm = () => {
 
       <!-- Licence Type -->
       <fieldset>
-        <legend>Lunar Fishing Licence Type</legend>
+        <legend>Fishing Licence Type</legend>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="licenceDuration_help"
@@ -283,7 +285,7 @@ const resetForm = () => {
 
       <!-- Classified Waters Licence -->
       <fieldset>
-        <legend>Classified Waters Licence (optional)</legend>
+        <legend>Classified Waters Licence</legend>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="classifiedWaters_help"
@@ -319,7 +321,7 @@ const resetForm = () => {
 
       <!-- Conservation Surcharge Stamps -->
       <fieldset>
-        <legend>Conservation Surcharge Stamps (optional)</legend>
+        <legend>Conservation Surcharge Stamps</legend>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="surcharge_help"

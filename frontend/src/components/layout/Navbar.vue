@@ -25,62 +25,64 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside));
 </script>
 
 <template>
-  <nav class="navigation-main pl-2 lg:pl-12">
-    <Toolbar>
-      <template #start>
-        <ol class="list-none m-0 p-0 flex flex-row items-center font-semibold">
-          <li>
-            <router-link :to="{ name: RouteNames.HOME }">Home</router-link>
-          </li>
-          <li
-            ref="submenuContainer"
-            class="has-submenu"
-            :class="{ 'submenu-open': isSubmenuOpen, active: isFormAssistActive }"
-          >
-            <router-link :to="{ name: RouteNames.AI_FORM_ASSIST }">AI Form Assist</router-link>
-            <button
-              type="button"
-              class="submenu-toggle"
-              aria-label="Toggle AI Form Assist submenu"
-              :aria-expanded="isSubmenuOpen"
-              @click="isSubmenuOpen = !isSubmenuOpen"
+  <nav class="navigation-main">
+    <div class="mx-auto w-full max-w-[1200px] pl-2 lg:pl-12">
+      <Toolbar>
+        <template #start>
+          <ol class="list-none m-0 p-0 flex flex-row items-center font-semibold">
+            <li>
+              <router-link :to="{ name: RouteNames.HOME }">Home</router-link>
+            </li>
+            <li
+              ref="submenuContainer"
+              class="has-submenu"
+              :class="{ 'submenu-open': isSubmenuOpen, active: isFormAssistActive }"
             >
-              <i class="pi pi-chevron-down submenu-caret" />
-            </button>
-            <ul
-              v-if="isSubmenuOpen"
-              class="submenu"
-            >
-              <li>
-                <router-link
-                  :to="{ name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE }"
-                  @click="isSubmenuOpen = false"
-                >
-                  Architecture
-                </router-link>
-              </li>
-              <li v-if="getIsAuthenticated">
-                <router-link
-                  :to="{ name: RouteNames.DEMO }"
-                  @click="isSubmenuOpen = false"
-                >
-                  Demo
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              href="https://bcgov.github.io/ai-hub-tracking/index.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              AI Services Hub
-            </a>
-          </li>
-        </ol>
-      </template>
-    </Toolbar>
+              <router-link :to="{ name: RouteNames.AI_FORM_ASSIST }">AI Form-Assist</router-link>
+              <button
+                type="button"
+                class="submenu-toggle"
+                aria-label="Toggle AI Form-Assist submenu"
+                :aria-expanded="isSubmenuOpen"
+                @click="isSubmenuOpen = !isSubmenuOpen"
+              >
+                <i class="pi pi-chevron-down submenu-caret" />
+              </button>
+              <ul
+                v-if="isSubmenuOpen"
+                class="submenu"
+              >
+                <li>
+                  <router-link
+                    :to="{ name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE }"
+                    @click="isSubmenuOpen = false"
+                  >
+                    Architecture
+                  </router-link>
+                </li>
+                <li v-if="getIsAuthenticated">
+                  <router-link
+                    :to="{ name: RouteNames.DEMO }"
+                    @click="isSubmenuOpen = false"
+                  >
+                    Demo
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                href="https://bcgov.github.io/ai-hub-tracking/index.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                AI Services Hub
+              </a>
+            </li>
+          </ol>
+        </template>
+      </Toolbar>
+    </div>
   </nav>
 </template>
 

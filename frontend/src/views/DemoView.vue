@@ -17,13 +17,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    ai-mode
-    class="-mx-6 lg:-mx-16 -my-6 lg:-my-6"
-  >
-    <DemoDisclaimerBanner />
+  <div ai-mode>
+    <div class="full-bleed -mt-6">
+      <DemoDisclaimerBanner />
+    </div>
 
-    <div class="px-6 lg:px-16 w-full max-w-[1600px] pb-30">
+    <div class="pb-30">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-8">
           <WebForm />
@@ -36,4 +35,11 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+</style>

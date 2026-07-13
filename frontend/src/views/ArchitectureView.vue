@@ -2,7 +2,7 @@
 import architectureDiagram from '@/assets/images/ai-service-architecture.jpg';
 </script>
 <template>
-  <div class="w-full max-w-[1600px]">
+  <div class="w-full max-w-[1200px]">
     <section class="mt-4 border-l-4 border-[var(--bc-blue)] bg-[var(--bc-surface-light)] p-6">
       <h1>AI Service: Multi-Agent Platform for BC Government</h1>
       <p class="mt-4 text-lg text-[var(--bc-text-secondary)]">

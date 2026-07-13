@@ -1,47 +1,174 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="w-full max-w-[1600px]">
-    <h2>What is this all about?</h2>
+  <div class="w-full max-w-[1200px]">
+    <section class="mt-4 border-l-4 border-[var(--bc-blue)] bg-[var(--bc-surface-light)] px-6 pt-2 pb-4">
+      <h1>A Practical Path to AI Adoption</h1>
+      <p class="mt-4 text-lg text-[var(--bc-text-secondary)]">
+        Accelerate AI adoption with a secure, scalable, and government-managed platform designed to help ministries and
+        program areas build AI-powered solutions faster.
+      </p>
+      <a
+        href="#get-started"
+        class="btn btn-primary mt-8 inline-block"
+      >
+        Learn More
+      </a>
+    </section>
 
-    <p class="mt-6">
-      We're here to tell you about the AI Form Assistant, an innovative solution designed to enhance your form-filling
-      experience using artificial intelligence. The Form Assistant is part of the Common AI Services initiative, helping
-      program areas leverage AI.
-    </p>
-    <h3>What does the Form Assistant do?</h3>
-    <ul>
-      <li>Guide people through completion of a webform</li>
-      <li>Provide a conversational interface for completing a webform</li>
-      <li>Offer AI-powered suggestions and auto-completions</li>
-      <li>Integrate with external data and tools</li>
-    </ul>
+    <section class="border-t border-[var(--bc-border)] py-10">
+      <h2>What is the AI Common Service?</h2>
+      <p class="mt-2 text-[var(--bc-text)]">
+        The AI Common Service provides ministries and government teams with access to enterprise AI capabilities through
+        a shared platform managed by the Economic Opportunities division within CSBC. Instead of building and
+        maintaining separate AI infrastructure, teams can leverage a secure, multi-tenant environment that supports
+        document search, knowledge retrieval, policy analysis, recruitment screening, and other AI-enabled use cases.
+      </p>
+      <p class="mt-4 text-[var(--bc-text)]">
+        The platform combines advanced AI services with secure data management, enabling departments to innovate while
+        meeting government security, privacy, and compliance requirements.
+      </p>
+    </section>
 
-    <!--
-  # Onboarding Tenants to AI Form Assist
+    <section class="border-t border-[var(--bc-border)] py-10">
+      <h2>Benefits for Program Areas</h2>
+      <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-lock" />
+            </div>
+            <h5 class="m-0">Secure by Design</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Departmental data remains isolated and protected while operating on a shared government platform.
+          </p>
+        </div>
 
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-bolt" />
+            </div>
+            <h5 class="m-0">Faster Time to Value</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Access AI capabilities without having to build, host, or support complex infrastructure.
+          </p>
+        </div>
 
-## Create a RAG knowledge resource
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-dollar" />
+            </div>
+            <h5 class="m-0">Cost Effective</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Shared infrastructure reduces duplication and allows departments to benefit from economies of scale.
+          </p>
+        </div>
 
-* Upload documents to Storage > Storage Account > Blob Storage
-* To manage AI Search service, connect to Azure Portal using UDP [via Bastion](https://portal.azure.com/#@bcgov.onmicrosoft.com/resource/subscriptions/56358ccd-64df-4586-98cc-f472e4c7323f/resourceGroups/d94cca-dev-networking/providers/Microsoft.Compute/virtualMachines/css-ai-dev-window/bastionHost)
-* In [AI Search service](https://portal.azure.com/#@bcgov.onmicrosoft.com/resource/subscriptions/56358ccd-64df-4586-98cc-f472e4c7323f/resourceGroups/d94cca-dev-networking/providers/Microsoft.Search/searchServices/css-ai-dev-aisearch/overview), click on 'import data' and follow wizard:
-  * Choose Azure Blob Storage
-  * RAG
-  * choose a storage account and blob container (pre-configured)
-  * Authenticate using managed identity > System-assigned
-  * choose LLM service (eg: openai)
-  * choose embedding (eg: text-embedding-3-large)
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-chart-line" />
+            </div>
+            <h5 class="m-0">Scalable</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Support growing data volumes, users, and AI use cases across ministries.
+          </p>
+        </div>
 
-* After the wizard has created the data source, index, skillset, go into the new index, click 'edit JSON' and set the parameters.configuration.excecutionEnvironment: "private"
-* Go into the new indexer and 'Run' (repeat as required)
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-check-circle" />
+            </div>
+            <h5 class="m-0">Compliant</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Built with government privacy, security, auditing, and operational requirements in mind.
+          </p>
+        </div>
 
-## Configure nr-ai-form API to use resources for a specific tenant
--->
-    <router-link
-      to="/demo"
-      class="primary"
+        <div class="rounded border border-[var(--bc-border)] bg-white p-4 transition-shadow hover:shadow-lg">
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--bc-blue)] text-white"
+            >
+              <i class="pi pi-users" />
+            </div>
+            <h5 class="m-0">Shared Innovation</h5>
+          </div>
+          <p class="mt-2 text-[var(--bc-text)]">
+            Enable collaboration across ministries while maintaining appropriate governance and control.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-[var(--bc-border)] py-10">
+      <h2>How It Works</h2>
+      <ol class="mt-6 list-decimal space-y-2 pl-6 text-[var(--bc-text)]">
+        <li>
+          <strong>Onboard Your Team</strong>
+          <br />
+          Register your program area through the government onboarding process and establish access controls for your
+          users.
+        </li>
+        <li>
+          <strong>Upload Knowledge Sources</strong>
+          <br />
+          Add documents, reports, policies, procedures, and other approved content that will power your AI solution.
+        </li>
+        <li>
+          <strong>Enable AI Search and Analysis</strong>
+          <br />
+          AI services generate embeddings and make your content searchable using contextual and semantic understanding.
+        </li>
+        <li>
+          <strong>Build Business Solutions</strong>
+          <br />
+          Develop applications that support policy research, document retrieval, employee assistance, recruitment
+          workflows, and other AI use cases.
+        </li>
+      </ol>
+    </section>
+    <section class="border-t border-[var(--bc-border)] py-10">
+      <h2>Governance and Oversight</h2>
+      <p class="mt-6 text-[var(--bc-text)]">
+        The AI Common Service is operated by the Common Services Team and includes monitoring, audit logging, usage
+        tracking, and cost management capabilities. Departments maintain control of their data while benefiting from
+        shared infrastructure and enterprise AI services.
+      </p>
+    </section>
+
+    <section
+      id="get-started"
+      class="my-10 rounded border-l-4 border-[var(--bc-gold)] bg-[var(--bc-surface-light)] p-6"
     >
-      Try the demo
-    </router-link>
+      <h2>Ready to Explore AI for Your Program Area?</h2>
+      <p class="mt-6 text-[var(--bc-text)]">
+        Whether you are evaluating an AI opportunity, building a proof of concept, or scaling an existing solution, the
+        AI Common Service provides a secure foundation for government AI initiatives.
+      </p>
+      <a
+        href="/contact"
+        class="btn btn-primary mt-6 inline-block"
+      >
+        Request an Engagement
+      </a>
+    </section>
   </div>
 </template>
