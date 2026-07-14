@@ -127,7 +127,6 @@ const resetForm = () => {
       </a>
       website.
     </Message>
-
     <form
       name="fishing-licence-form"
       class="mt-16"
