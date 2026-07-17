@@ -5,7 +5,7 @@ import { LoginButton } from '@/components/layout';
 <template>
   <header>
     <nav id="header-branding">
-      <div class="flex flex-row flex-wrap items-center px-4 lg:pl-12">
+      <div class="flex flex-row flex-wrap items-center mx-auto w-full max-w-[1200px] px-4 lg:pl-12">
         <div class="flex flex-none">
           <a href="https://www2.gov.bc.ca">
             <img

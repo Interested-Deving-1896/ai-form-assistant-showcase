@@ -40,7 +40,8 @@ const isVisible = ref(true);
 }
 
 .demo-disclaimer-content {
-  max-width: 1600px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .demo-disclaimer-icon {

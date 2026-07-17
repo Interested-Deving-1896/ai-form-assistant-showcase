@@ -11,8 +11,10 @@ import { Header, Footer } from '@/components/layout';
     </div>
 
     <!-- Main views -->
-    <main class="my-6 mx-6 lg:mx-16 flex-auto">
-      <slot name="main" />
+    <main class="my-6 flex-auto">
+      <div class="mx-auto w-full max-w-[1200px] px-6 lg:px-16">
+        <slot name="main" />
+      </div>
     </main>
 
     <!-- Footer -->
