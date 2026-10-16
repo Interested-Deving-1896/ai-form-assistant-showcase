@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Message } from '@/lib/primevue';
+// import { Message } from '@/lib/primevue';
 
 // ----- Form Data -----
 const formData = ref({
@@ -86,39 +86,9 @@ const resetForm = () => {
 </script>
 <template>
   <div class="form-container">
-    <h1 class="m-0">AI Form-Assist Demo</h1>
+    <!-- <h2 class="mt-0">Sample Permit Application</h2> -->
 
-    <h2>Sample Permit Application (the webform)</h2>
-    <p>
-      For this demo, we'll simulate the experience of someone applying for a
-      <strong>fishing licence</strong>
-      .
-      <br />
-      For information on freshwater fishing
-      <a
-        href="https://www2.gov.bc.ca/gov/content/sports-culture/recreation/fishing-hunting/fishing/recreational-freshwater-fishing-licence"
-        target="_blank"
-      >
-        licences
-      </a>
-      and fishing
-      <a
-        href="https://www2.gov.bc.ca/gov/content/sports-culture/recreation/fishing-hunting/fishing/fishing-regulations"
-        target="_blank"
-      >
-        regulations
-      </a>
-      in B.C., refer to the
-      <a
-        href="https://www2.gov.bc.ca/gov/content?id=78F8FA0205454970B14CC3537F46829A"
-        target="_blank"
-      >
-        Freshwater Fishing in B.C. webpages
-      </a>
-      .
-    </p>
-
-    <Message
+    <!-- <Message
       severity="info"
       class="hidden"
     >
@@ -132,134 +102,149 @@ const resetForm = () => {
         Department of Fisheries and Oceans
       </a>
       website.
-    </Message>
+    </Message> -->
+
+    <!-- Field ids and data-ids match the form definition; the AI Form Assist client uses them to fill in values -->
     <form
       name="fishing-licence-form"
-      class="mt-16"
+      class="bc-form rounded border border-[var(--bc-border)] bg-white p-4 sm:p-6"
       @submit.prevent="submitForm"
     >
-      <!-- Applicant Information -->
-      <fieldset>
-        <legend>Angler Information</legend>
+      <section class="form-section">
+        <h3>Angler Information</h3>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="angler_age_range_help"
           class="helpLink"
         />
 
-        <label for="angler_age_range">Age</label>
-        <select
-          v-model="formData.angler_age_range"
-          data-id="angler_age_range"
-          class="w-full mb-5"
-        >
-          <option value="">please select</option>
-          <option
-            v-for="option in angler_age_range_options"
-            :key="option.value"
-            :value="option.value"
+        <div class="form-field">
+          <label for="angler_age_range">Age</label>
+          <select
+            id="angler_age_range"
+            v-model="formData.angler_age_range"
+            data-id="angler_age_range"
+            class="w-full"
           >
-            {{ option.label }}
-          </option>
-        </select>
+            <option value="">please select</option>
+            <option
+              v-for="option in angler_age_range_options"
+              :key="option.value"
+              :value="option.value"
+            >
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
 
-        <!-- Residency Status -->
-
-        <div class="form-group mb-6">
-          <label for="residency">Residency Status</label>
+        <fieldset class="form-group">
+          <legend>Residency Status</legend>
           <div
             v-tooltip="{ value: 'Ask the Assistant' }"
             data-id="residency_help"
             class="helpLink"
           />
-          <div
-            v-for="option in residencyOptions"
-            :key="option.value"
-            class="radio-option"
-          >
-            <input
-              :id="'residency_' + option.value"
-              v-model="formData.residency"
-              type="radio"
-              :value="option.value"
-              :data-id="'residency_' + option.value"
-            />
-            <label
-              :for="'residency_' + option.value"
-              class="ml-2"
+          <div class="form-options">
+            <div
+              v-for="option in residencyOptions"
+              :key="option.value"
+              class="radio-option"
             >
-              {{ option.label }}
-            </label>
+              <input
+                :id="'residency_' + option.value"
+                v-model="formData.residency"
+                type="radio"
+                name="residency"
+                :value="option.value"
+                :data-id="'residency_' + option.value"
+              />
+              <label
+                :for="'residency_' + option.value"
+                class="ml-2"
+              >
+                {{ option.label }}
+              </label>
+            </div>
           </div>
+        </fieldset>
+
+        <div class="form-field">
+          <label for="wid">Fish and Wildlife ID (WID)</label>
+          <input
+            id="wid"
+            v-model="formData.wid"
+            type="text"
+            data-id="wid"
+            class="w-full"
+            aria-describedby="wid-description"
+          />
+          <small id="wid-description">Leave blank if you need to register for a new WID.</small>
         </div>
+      </section>
 
-        <label for="wid">Fish and Wildlife ID (WID)</label>
-        <small>Leave blank if you need to register for a new WID.</small>
-        <input
-          id="wid"
-          v-model="formData.wid"
-          type="text"
-          data-id="wid"
-          class="w-full"
-        />
-      </fieldset>
-
-      <!-- Licence Type -->
-      <fieldset>
-        <legend>Fishing Licence Type</legend>
+      <section class="form-section">
+        <h3>Fishing Licence Type</h3>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="licenceDuration_help"
           class="helpLink"
         />
-        <label for="licenceDuration">Duration</label>
-        <select
-          id="licenceDuration"
-          v-model="formData.licenceDuration"
-          data-id="licenceDuration"
-          class="w-full mb-2"
+
+        <div class="form-field">
+          <label for="licenceDuration">Duration</label>
+          <select
+            id="licenceDuration"
+            v-model="formData.licenceDuration"
+            data-id="licenceDuration"
+            class="w-full"
+          >
+            <option value="">please select</option>
+            <option
+              v-for="option in licenceDurationOptions"
+              :key="option.value"
+              :value="option.value"
+            >
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-options form-field">
+          <div class="checkbox-option">
+            <input
+              id="seniorRate"
+              v-model="formData.seniorRate"
+              type="checkbox"
+              data-id="seniorRate"
+            />
+            <label
+              for="seniorRate"
+              class="ml-2"
+            >
+              I am 65 or older (resident annual rate)
+            </label>
+          </div>
+
+          <div class="checkbox-option">
+            <input
+              id="disabilityReduction"
+              v-model="formData.disabilityReduction"
+              type="checkbox"
+              data-id="disabilityReduction"
+            />
+            <label
+              for="disabilityReduction"
+              class="ml-2"
+            >
+              I hold a Certificate of Eligibility for the fee reduction program (severe and permanent disability)
+            </label>
+          </div>
+        </div>
+
+        <div
+          v-if="formData.disabilityReduction"
+          class="form-field"
         >
-          <option value="">please select</option>
-          <option
-            v-for="option in licenceDurationOptions"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.label }}
-          </option>
-        </select>
-
-        <div class="checkbox-option">
-          <input
-            id="seniorRate"
-            v-model="formData.seniorRate"
-            type="checkbox"
-            data-id="seniorRate"
-          />
-          <label
-            for="seniorRate"
-            class="ml-2"
-          >
-            I am 65 or older (resident annual rate)
-          </label>
-        </div>
-
-        <div class="checkbox-option">
-          <input
-            id="disabilityReduction"
-            v-model="formData.disabilityReduction"
-            type="checkbox"
-            data-id="disabilityReduction"
-          />
-          <label
-            for="disabilityReduction"
-            class="ml-2"
-          >
-            I hold a Certificate of Eligibility for the fee reduction program (severe and permanent disability)
-          </label>
-        </div>
-
-        <template v-if="formData.disabilityReduction">
           <label for="coeNumber">Certificate of Eligibility Number</label>
           <input
             id="coeNumber"
@@ -268,128 +253,167 @@ const resetForm = () => {
             data-id="coeNumber"
             class="w-full"
           />
-        </template>
-      </fieldset>
+        </div>
+      </section>
 
-      <!-- Fishing Region -->
-      <fieldset>
-        <legend>Fishing Region</legend>
+      <section class="form-section">
+        <h3 id="location-heading">Fishing Region</h3>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="location_help"
           class="helpLink"
         />
-        <select
-          v-model="formData.location"
-          data-id="location"
-          class="w-full"
-        >
-          <option value="">please select</option>
-          <option
-            v-for="option in locationOptions"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.label }}
-          </option>
-        </select>
-      </fieldset>
 
-      <!-- Classified Waters Licence -->
-      <fieldset>
-        <legend>Classified Waters Licence</legend>
+        <div class="form-field">
+          <select
+            id="location"
+            v-model="formData.location"
+            data-id="location"
+            class="w-full"
+            aria-labelledby="location-heading"
+          >
+            <option value="">please select</option>
+            <option
+              v-for="option in locationOptions"
+              :key="option.value"
+              :value="option.value"
+            >
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Classified Waters Licence</h3>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="classifiedWaters_help"
           class="helpLink"
         />
-        <div class="checkbox-option">
-          <input
-            id="classifiedWaters"
-            v-model="formData.classifiedWaters"
-            type="checkbox"
-            data-id="classifiedWaters"
-          />
-          <label
-            for="classifiedWaters"
-            class="ml-2"
-          >
-            Add a Classified Waters Licence
-          </label>
+
+        <div class="form-options form-field">
+          <div class="checkbox-option">
+            <input
+              id="classifiedWaters"
+              v-model="formData.classifiedWaters"
+              type="checkbox"
+              data-id="classifiedWaters"
+            />
+            <label
+              for="classifiedWaters"
+              class="ml-2"
+            >
+              Add a Classified Waters Licence
+            </label>
+          </div>
         </div>
 
-        <template v-if="formData.classifiedWaters">
+        <div
+          v-if="formData.classifiedWaters"
+          class="form-field"
+        >
           <label for="classifiedWaterName">Water Name / Region</label>
-          <small>E.g. Dean River, Skagit River, Kootenay region rivers.</small>
           <input
             id="classifiedWaterName"
             v-model="formData.classifiedWaterName"
             type="text"
             data-id="classifiedWaterName"
             class="w-full"
+            aria-describedby="classifiedWaterName-description"
           />
-        </template>
-      </fieldset>
+          <small id="classifiedWaterName-description">E.g. Dean River, Skagit River, Kootenay region rivers.</small>
+        </div>
+      </section>
 
-      <!-- Conservation Surcharge Stamps -->
-      <fieldset>
-        <legend>Conservation Surcharge Stamps</legend>
+      <section class="form-section">
+        <h3 id="surcharge-heading">Conservation Surcharge Stamps</h3>
         <div
           v-tooltip="{ value: 'Ask the Assistant' }"
           data-id="surcharge_help"
           class="helpLink"
         />
-        <div
-          v-for="option in surchargeOptions"
-          :key="option.value"
-          class="checkbox-option"
+
+        <fieldset
+          class="form-group"
+          aria-labelledby="surcharge-heading"
         >
+          <div class="form-options">
+            <div
+              v-for="option in surchargeOptions"
+              :key="option.value"
+              class="checkbox-option"
+            >
+              <input
+                :id="'surcharge_' + option.value"
+                v-model="formData.surcharge"
+                type="checkbox"
+                :value="option.value"
+                :data-id="'surcharge_' + option.value"
+              />
+              <label
+                :for="'surcharge_' + option.value"
+                class="ml-2"
+              >
+                {{ option.label }}
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="form-section">
+        <h3 id="estimatedCost-heading">Estimated Licence Cost</h3>
+        <div class="form-field cost-field">
+          <span aria-hidden="true">$</span>
           <input
-            :id="'surcharge_' + option.value"
-            v-model="formData.surcharge"
-            type="checkbox"
-            :value="option.value"
-            :data-id="'surcharge_' + option.value"
+            id="estimatedCost"
+            :value="calculatedPrice"
+            type="text"
+            data-id="estimatedCost"
+            class="w-full"
+            aria-labelledby="estimatedCost-heading"
+            readonly
           />
-          <label
-            :for="'surcharge_' + option.value"
-            class="ml-2"
-          >
-            {{ option.label }}
-          </label>
         </div>
-      </fieldset>
+      </section>
 
-      <!-- Estimated Cost -->
-      <fieldset>
-        <legend>Estimated Licence Cost</legend>
-        <input
-          id="estimatedCost"
-          :value="calculatedPrice"
-          type="text"
-          data-id="estimatedCost"
-          class="w-full"
-          readonly
-        />
-      </fieldset>
-
-      <!-- Form Actions -->
       <div class="form-actions">
         <button
+          type="submit"
           class="btn btn-primary"
-          @click="submitForm"
         >
-          ✓ Submit
+          Submit
         </button>
         <button
+          type="button"
           class="btn btn-secondary"
           @click="resetForm"
         >
-          ✕ Reset
+          Reset
         </button>
       </div>
     </form>
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+// Read-only total with a dollar sign inside the field
+.cost-field {
+  position: relative;
+  max-width: 12rem;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: var(--bc-text-secondary);
+    pointer-events: none;
+  }
+
+  input {
+    padding-left: 1.75rem;
+  }
+}
+</style>

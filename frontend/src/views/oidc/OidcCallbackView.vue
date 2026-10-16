@@ -21,7 +21,7 @@ onMounted(async () => {
 
 <template>
   <div class="flex flex-col items-center mt-10">
-    <h2>Authorizing...</h2>
+    <h1>Authorizing...</h1>
     <Spinner />
   </div>
 </template>

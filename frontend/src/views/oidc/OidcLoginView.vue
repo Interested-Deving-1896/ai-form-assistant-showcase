@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center mt-10">
-    <h2>Logging in...</h2>
+    <h1>Logging in...</h1>
     <Spinner />
   </div>
 </template>

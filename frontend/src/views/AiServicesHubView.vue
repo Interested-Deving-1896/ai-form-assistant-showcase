@@ -28,7 +28,7 @@ const onboardingSteps = [
 </script>
 
 <template>
-  <div class="w-full max-w-[1200px]">
+  <div class="w-full max-w-[75rem]">
     <!-- TODO(content): draft copy summarised from the ai-hub-tracking docs; review and replace as needed -->
     <PageHero title="AI Services Hub">
       A centralized, secure gateway for BC Government teams to access enterprise AI services, including Azure OpenAI
@@ -38,11 +38,11 @@ const onboardingSteps = [
           :href="DOCS_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-primary inline-block"
+          class="btn btn-primary"
         >
           Read the Docs
           <i
-            class="pi pi-external-link ml-1"
+            class="pi pi-external-link"
             aria-hidden="true"
           />
         </a>
@@ -50,11 +50,11 @@ const onboardingSteps = [
           :href="ONBOARDING_PORTAL_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn-secondary inline-block"
+          class="btn btn-secondary"
         >
           Tenant Onboarding Portal
           <i
-            class="pi pi-external-link ml-1"
+            class="pi pi-external-link"
             aria-hidden="true"
           />
         </a>
@@ -62,7 +62,7 @@ const onboardingSteps = [
     </PageHero>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>Shared Platform, Dedicated Data</h3>
+      <h2>Shared Platform, Dedicated Data</h2>
       <p class="mt-2 text-[var(--bc-text)]">
         Dev, test, and production each run in their own Azure subscription. Within each one, all tenants share the AI
         Foundry hub and an API Management gateway that handles authentication, token limits, PII redaction, and logging.
@@ -81,7 +81,7 @@ const onboardingSteps = [
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>Getting Onboarded</h3>
+      <h2>Getting Onboarded</h2>
       <ProcessSteps :steps="onboardingSteps" />
       <p class="mt-6 text-[var(--bc-text)]">
         Before going to production, teams agree to engage a Privacy Analyst, notify CSBC if personal information is
@@ -92,11 +92,11 @@ const onboardingSteps = [
         :href="ONBOARDING_PORTAL_URL"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn btn-primary mt-2 inline-block"
+        class="btn btn-primary mt-2"
       >
         Go to the Onboarding Portal
         <i
-          class="pi pi-external-link ml-1"
+          class="pi pi-external-link"
           aria-hidden="true"
         />
       </a>

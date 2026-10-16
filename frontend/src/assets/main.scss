@@ -1,165 +1,473 @@
+// Styles follow the BC Design System: https://www2.gov.bc.ca/gov/content/digital/design-system
+// Values come from the @bcgov/design-tokens CSS variables (--bcds-*), loaded in main.ts.
+// Layer order is declared in tailwind.css, so Tailwind utilities override everything here.
+
 :root {
-  font-size: 16px;
-  --app-label-color: #38598a;
+  // The browser's default, 16px unless the user has changed it. Everything sized in rem scales with this,
+  // so keep sizes in rem, except borders, outlines and breakpoints.
+  font-size: 100%;
 
-  /* BC Design System tokens */
-  --bc-blue: #013366;
-  --bc-gold: #fcba19;
-  --bc-blue-hover: #1e5189;
-  --bc-link: #255a90;
-  --bc-text: #2d2d2d;
-  --bc-text-secondary: #474543;
-  --bc-border: #d8d8d8;
-  --bc-border-medium: #898785;
-  --bc-border-dark: #353433;
-  --bc-border-active: #2e5dd7;
-  --bc-surface-light: #faf9f8;
-  --bc-surface-hover: #edebe9;
-
-  /* PrimeVue tokens */
-  --p-primary-color: #013366;
+  /* App aliases for BC Design System tokens */
+  --bc-blue: var(--bcds-theme-primary-blue);
+  --bc-gold: var(--bcds-theme-primary-gold);
+  --bc-blue-hover: var(--bcds-surface-color-primary-hover);
+  --bc-blue-pressed: var(--bcds-surface-color-primary-pressed);
+  --bc-link: var(--bcds-typography-color-link);
+  --bc-link-hover: var(--bcds-surface-color-border-active);
+  --bc-text: var(--bcds-typography-color-primary);
+  --bc-text-secondary: var(--bcds-typography-color-secondary);
+  --bc-text-disabled: var(--bcds-typography-color-disabled);
+  --bc-border: var(--bcds-surface-color-border-default);
+  --bc-border-medium: var(--bcds-surface-color-border-medium);
+  --bc-border-dark: var(--bcds-surface-color-border-dark);
+  --bc-border-active: var(--bcds-surface-color-border-active);
+  --bc-surface-light: var(--bcds-surface-color-background-light-gray);
+  --bc-surface-light-blue: var(--bcds-surface-color-background-light-blue);
+  --bc-surface-hover: var(--bcds-surface-color-secondary-hover);
+  --bc-surface-pressed: var(--bcds-surface-color-secondary-pressed);
+  --bc-surface-disabled: var(--bcds-surface-color-forms-disabled);
+  --bc-focus-ring: var(--bcds-layout-border-width-medium) solid var(--bcds-surface-color-border-active);
 }
 
-html {
-  font-family:
-    BCSans,
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-}
-
-body,
-body::before,
-body::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-body {
-  min-height: 100vh;
-  background: white;
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  font-weight: normal;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: var(--p-primary-color);
-  font-weight: 700;
-}
-
-h1,
-h2 {
-  margin: 1.75rem 0;
-}
-
-h1 {
-  font-size: 2.25rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  color: var(--p-primary-color);
-  font-size: 1rem;
-}
-
-p {
-  line-height: 1.5rem;
-}
-
-a {
-  color: var(--p-primary-color);
-  text-decoration: underline;
-}
-
-label {
-  color: var(--app-label-color);
-  display: inline-block;
-  margin-bottom: 0.5rem;
-}
-
-.wrap-block {
-  display: inline-block;
-  overflow-wrap: break-word;
-  width: 100%;
-  td {
-    width: inherit;
+@layer app-base {
+  html {
+    font-family: BCSans, 'BC Sans', 'Noto Sans', Verdana, Arial, sans-serif;
   }
-}
 
-/* -------- layout ----------*/
+  body,
+  body::before,
+  body::after {
+    box-sizing: border-box;
+    margin: 0;
+  }
 
-.gov-footer {
-  background-color: #003366 !important;
-  border-top: 2px solid #fcba19;
-  min-height: 3rem;
+  body {
+    min-height: 100vh;
+    background-color: var(--bcds-surface-color-background-white);
+    color: var(--bc-text);
+    font-size: var(--bcds-typography-font-size-body);
+    font-weight: var(--bcds-typography-font-weights-regular);
+    line-height: var(--bcds-typography-line-heights-xdense);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--bc-text);
+    font-weight: var(--bcds-typography-font-weights-bold);
+  }
+
+  // Headings are a step or more below the BC Design System's sizes so they sit closer in scale to the 16px body:
+  // h1 32px, h2 24px, h3 20px, h4 18px, h5 16px, h6 14px. Line heights are about 1.1 to 1.5 times the font size.
+  h1 {
+    margin: var(--bcds-layout-margin-large) 0 var(--bcds-layout-margin-medium);
+    font-size: var(--bcds-typography-font-size-h2);
+    line-height: var(--bcds-typography-line-heights-sparse);
+  }
+
+  h2 {
+    margin: var(--bcds-layout-margin-large) 0 var(--bcds-layout-margin-small);
+    font-size: var(--bcds-typography-font-size-h4);
+    line-height: var(--bcds-typography-line-heights-dense);
+  }
+
+  h3 {
+    margin: var(--bcds-layout-margin-large) 0 var(--bcds-layout-margin-small);
+    font-size: var(--bcds-typography-font-size-h5);
+    line-height: var(--bcds-typography-line-heights-xdense);
+  }
+
+  h4 {
+    margin: var(--bcds-layout-margin-medium) 0 var(--bcds-layout-margin-small);
+    font-size: var(--bcds-typography-font-size-large-body);
+    line-height: var(--bcds-typography-line-heights-xdense);
+  }
+
+  h5 {
+    margin: var(--bcds-layout-margin-medium) 0 var(--bcds-layout-margin-small);
+    font-size: var(--bcds-typography-font-size-body);
+    line-height: var(--bcds-typography-line-heights-xdense);
+  }
+
+  h6 {
+    margin: var(--bcds-layout-margin-medium) 0 var(--bcds-layout-margin-small);
+    font-size: var(--bcds-typography-font-size-small-body);
+    line-height: var(--bcds-typography-line-heights-xxdense);
+  }
+
+  p {
+    line-height: var(--bcds-typography-line-heights-xdense);
+  }
+
   a {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    color: #ffffff;
-    font-size: 1rem;
-    text-decoration: none;
+    color: var(--bc-link);
+    text-decoration: underline;
+    text-underline-offset: var(--bcds-layout-padding-hair);
+
     &:hover {
-      text-decoration: underline;
-    }
-    &:focus {
-      outline: none;
-    }
-    &:visited {
-      color: #ffffff;
+      color: var(--bc-link-hover);
     }
   }
 
-  & > div:last-child {
-    order: 1;
+  :focus-visible {
+    outline: var(--bc-focus-ring);
+    outline-offset: var(--bcds-layout-margin-hair);
   }
-  .version {
-    color: #ffffff;
-    float: right;
+
+  pre {
+    padding: var(--bcds-layout-padding-medium);
+    overflow-x: auto;
+    border: var(--bcds-layout-border-width-small) solid var(--bc-border);
+    border-radius: var(--bcds-layout-border-radius-medium);
+    background-color: var(--bc-surface-light);
+    font-size: var(--bcds-typography-font-size-small-body);
+    line-height: var(--bcds-typography-line-heights-xxdense);
   }
 }
 
-// Stretches a banner to the full viewport width from inside the centred main column
-.full-bleed {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+@layer app-components {
+  // Centred content column shared by the header, navigation, banners, main content and footer.
+  // Slightly wider than the BC Design System's 1100px, with its 1rem gutter on small screens.
+  .layout-container {
+    box-sizing: content-box;
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 0 var(--bcds-layout-padding-medium);
+  }
+
+  // Stretches a banner to the full viewport width from inside the centred main column
+  .full-bleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .wrap-block {
+    display: inline-block;
+    overflow-wrap: break-word;
+    width: 100%;
+    td {
+      width: inherit;
+    }
+  }
+
+  /* ---------- buttons ------------ */
+
+  // BC Design System button, medium size. Works on <button>, <a> and <router-link>.
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bcds-layout-padding-small);
+    box-sizing: border-box;
+    min-height: 2.5rem;
+    padding: 0 var(--bcds-layout-padding-medium);
+    border: var(--bcds-layout-border-width-small) solid transparent;
+    border-radius: var(--bcds-layout-border-radius-medium);
+    font-family: inherit;
+    font-size: var(--bcds-typography-font-size-body);
+    font-weight: var(--bcds-typography-font-weights-regular);
+    line-height: var(--bcds-typography-line-heights-xdense);
+    text-decoration: none;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--bcds-surface-color-primary-button-default);
+    color: var(--bcds-typography-color-primary-invert);
+
+    &:hover {
+      background-color: var(--bcds-surface-color-primary-button-hover);
+      color: var(--bcds-typography-color-primary-invert);
+    }
+
+    &:active {
+      background-color: var(--bcds-surface-color-primary-pressed);
+    }
+
+    &:disabled {
+      background-color: var(--bcds-surface-color-primary-button-disabled);
+      color: var(--bc-text-disabled);
+    }
+  }
+
+  .btn-secondary {
+    border-color: var(--bc-border-dark);
+    background-color: var(--bcds-surface-color-secondary-button-default);
+    color: var(--bc-text);
+
+    &:hover {
+      background-color: var(--bcds-surface-color-secondary-button-hover);
+      color: var(--bc-text);
+    }
+
+    &:active {
+      background-color: var(--bcds-surface-color-secondary-pressed);
+    }
+
+    &:disabled {
+      border-color: var(--bc-border);
+      background-color: var(--bcds-surface-color-secondary-button-disabled);
+      color: var(--bc-text-disabled);
+    }
+  }
+
+  .btn-tertiary {
+    background-color: var(--bcds-surface-color-tertiary-button-default);
+    color: var(--bc-text);
+
+    &:hover {
+      background-color: var(--bcds-surface-color-tertiary-button-hover);
+      color: var(--bc-text);
+    }
+
+    &:active {
+      background-color: var(--bcds-surface-color-tertiary-pressed);
+    }
+
+    &:disabled {
+      color: var(--bc-text-disabled);
+    }
+  }
+
+  // Small, square button holding only an icon, e.g. a close button
+  .btn-icon {
+    min-width: 2rem;
+    width: 2rem;
+    min-height: 2rem;
+    height: 2rem;
+    padding: 0;
+  }
+
+  /* ---------- form fields ------------ */
+
+  // BC Design System form layout and fields (text field, select, checkbox and radio groups) for native controls.
+  // Markup: .form-section > h3 + .form-field / fieldset.form-group, then .form-actions.
+  .bc-form {
+    // Sections are separated by a rule, like content sections elsewhere on the site
+    .form-section {
+      padding-bottom: var(--bcds-layout-padding-large);
+
+      & + .form-section {
+        padding-top: var(--bcds-layout-padding-large);
+        border-top: var(--bcds-layout-border-width-small) solid var(--bc-border);
+      }
+
+      > h3 {
+        margin: 0 0 var(--bcds-layout-margin-small);
+        font-size: var(--bcds-typography-font-size-h5);
+        line-height: var(--bcds-typography-line-heights-regular);
+      }
+    }
+
+    // A labelled field, or a group of checkboxes or radios
+    .form-field,
+    .form-group {
+      margin: 0 0 var(--bcds-layout-margin-medium);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    fieldset {
+      min-width: 0;
+      padding: 0;
+      border: none;
+    }
+
+    // Field and group labels, at body size to match paragraph text
+    label,
+    legend {
+      display: block;
+      padding: 0 0 var(--bcds-layout-padding-xsmall);
+      color: var(--bc-text);
+      font-size: var(--bcds-typography-font-size-body);
+      line-height: var(--bcds-typography-line-heights-xdense);
+    }
+
+    // Field description, below the field
+    small {
+      display: block;
+      padding-top: var(--bcds-layout-padding-xsmall);
+      color: var(--bc-text-secondary);
+      font-size: var(--bcds-typography-font-size-body);
+      line-height: var(--bcds-typography-line-heights-xdense);
+    }
+
+    .form-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--bcds-layout-margin-xsmall);
+    }
+
+    input[type='date'],
+    input[type='text'],
+    select,
+    textarea {
+      box-sizing: border-box;
+      height: var(--bcds-layout-margin-xxlarge);
+      padding: 0 0.75rem;
+      border: var(--bcds-layout-border-width-small) solid var(--bc-border);
+      border-radius: var(--bcds-layout-border-radius-medium);
+      background-color: var(--bcds-surface-color-forms-default);
+      color: var(--bc-text);
+      font-family: inherit;
+      font-size: var(--bcds-typography-font-size-body);
+
+      &::placeholder {
+        color: var(--bcds-typography-color-placeholder);
+      }
+
+      &:hover {
+        border-color: var(--bc-border-dark);
+      }
+
+      &:focus {
+        border-color: var(--bc-border-active);
+        outline: none;
+      }
+
+      &:focus-visible {
+        border-radius: var(--bcds-layout-border-radius-large);
+        outline: var(--bc-focus-ring);
+        outline-offset: var(--bcds-layout-margin-hair);
+      }
+
+      &:disabled {
+        background-color: var(--bc-surface-disabled);
+        color: var(--bcds-typography-color-placeholder);
+        cursor: not-allowed;
+      }
+    }
+
+    textarea {
+      height: auto;
+      padding: var(--bcds-layout-padding-small) 0.75rem;
+      resize: vertical;
+    }
+
+    input[readonly] {
+      background-color: var(--bc-surface-disabled);
+    }
+
+    select {
+      appearance: none;
+      padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%232d2d2d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 6l4.5 4.5L12.5 6'/%3E%3C/svg%3E");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: var(--bcds-icons-size-small);
+      cursor: pointer;
+    }
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      appearance: none;
+      flex-shrink: 0;
+      margin: 0;
+      border: var(--bcds-layout-border-width-small) solid var(--bc-border-medium);
+      background-color: var(--bcds-surface-color-secondary-default);
+      cursor: pointer;
+
+      &:hover {
+        border-color: var(--bc-border-dark);
+      }
+
+      &:disabled {
+        border-color: var(--bc-border-medium);
+        background-color: var(--bcds-surface-color-primary-disabled);
+        cursor: not-allowed;
+      }
+    }
+
+    input[type='checkbox'] {
+      width: var(--bcds-icons-size-small);
+      height: var(--bcds-icons-size-small);
+      // Centres the box on the first line of its label
+      margin-top: calc((var(--bcds-typography-line-heights-xdense) - var(--bcds-icons-size-small)) / 2);
+      border-radius: var(--bcds-layout-border-radius-small);
+
+      &:checked {
+        border-color: var(--bcds-surface-color-primary-default);
+        background: var(--bcds-surface-color-primary-default)
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E")
+          center / 100% no-repeat;
+      }
+
+      &:checked:hover {
+        border-color: var(--bcds-surface-color-primary-hover);
+        background-color: var(--bcds-surface-color-primary-hover);
+      }
+    }
+
+    input[type='radio'] {
+      width: var(--bcds-icons-size-xsmall);
+      height: var(--bcds-icons-size-xsmall);
+      // Centres the circle on the first line of its label
+      margin-top: calc((var(--bcds-typography-line-heights-xdense) - var(--bcds-icons-size-xsmall)) / 2);
+      border-radius: var(--bcds-layout-border-radius-circular);
+      transition: border 200ms;
+
+      &:checked {
+        border: 5px solid var(--bcds-surface-color-primary-default);
+      }
+
+      @media (prefers-reduced-motion) {
+        transition: none;
+      }
+    }
+
+    .radio-option,
+    .checkbox-option {
+      display: flex;
+      align-items: flex-start;
+
+      label {
+        padding: 0;
+        color: var(--bc-text-secondary);
+        cursor: pointer;
+      }
+    }
+
+    .helpLink {
+      float: right;
+      cursor: pointer;
+    }
+
+    // BC Design System button group, left aligned below the last section
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--bcds-layout-margin-small);
+      padding-top: var(--bcds-layout-padding-large);
+      border-top: var(--bcds-layout-border-width-small) solid var(--bc-border);
+    }
+  }
 }
 
 /* ---------- primevue overrides ------------ */
+
+// BC Design System dialogs separate the header and content with a rule
+.p-dialog-header {
+  border-bottom: var(--bcds-layout-border-width-small) solid var(--bc-border);
+}
+
+.p-tooltip-text {
+  font-size: var(--bcds-typography-font-size-small-body);
+  line-height: var(--bcds-typography-line-heights-xxdense);
+}
 
 .p-accordionheader {
   justify-content: flex-start !important;
@@ -197,132 +505,5 @@ label {
 
   .p-card-content {
     padding: 0 1rem 0 1rem;
-  }
-}
-
-/* ---------- form styles ------------ */
-
-fieldset {
-  border: 1px solid var(--bc-border);
-  border-radius: 4px;
-  background-color: #ffffff;
-  padding: 1.5rem 2rem 2rem;
-  margin: 0 0 2rem 0;
-}
-
-legend {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--bc-blue);
-  padding: 0 0.5rem;
-}
-
-label {
-  display: inline-block;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-  color: var(--bc-text);
-  margin-bottom: 0.5rem;
-}
-
-small {
-  display: block;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: var(--bc-text-secondary);
-  margin-bottom: 0.5rem;
-}
-
-.helpLink {
-  float: right;
-  cursor: pointer;
-}
-
-input[type='date'],
-input[type='text'],
-select {
-  border: 1px solid var(--bc-border-medium);
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: var(--bc-text);
-  font-size: 1rem;
-  padding: 0.75rem;
-
-  &:hover {
-    border-color: var(--bc-border-dark);
-  }
-
-  &:focus {
-    border-color: var(--bc-border-active);
-    outline: 2px solid var(--bc-border-active);
-    outline-offset: 1px;
-  }
-}
-
-input[readonly] {
-  background-color: var(--bc-surface-light);
-}
-
-.radio-option,
-.checkbox-option {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-
-  input {
-    accent-color: var(--bc-blue);
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-
-  label {
-    font-weight: 400;
-    margin-bottom: 0;
-  }
-}
-
-pre {
-  background-color: var(--bc-surface-light);
-  border: 1px solid var(--bc-border);
-  border-radius: 4px;
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  justify-content: center;
-}
-
-.btn {
-  border-radius: 4px;
-  padding: 0.625rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.btn-primary {
-  background-color: var(--bc-blue);
-  border-color: var(--bc-blue);
-  color: #ffffff;
-
-  &:hover {
-    background-color: var(--bc-blue-hover);
-    border-color: var(--bc-blue-hover);
-  }
-}
-
-.btn-secondary {
-  background-color: #ffffff;
-  border-color: var(--bc-blue);
-  color: var(--bc-blue);
-
-  &:hover {
-    background-color: var(--bc-surface-hover);
   }
 }

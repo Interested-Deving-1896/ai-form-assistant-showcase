@@ -81,19 +81,19 @@ const programAreas = [
 </script>
 
 <template>
-  <div class="w-full max-w-[1200px]">
+  <div class="w-full max-w-[75rem]">
     <PageHero title="AI Form Assist">
       Helping people complete government applications with confidence through AI-powered guidance, while improving
       submission quality and reducing administrative effort across ministries.
       <template #actions>
         <router-link
           :to="{ name: RouteNames.AI_FORM_ASSIST_DEMO }"
-          class="btn btn-primary inline-block"
+          class="btn btn-primary"
         >
           Try the Demo
           <template v-if="!getIsAuthenticated">
             <i
-              class="pi pi-lock ml-1"
+              class="pi pi-lock"
               aria-hidden="true"
             />
             <span class="sr-only">(login required)</span>
@@ -101,7 +101,7 @@ const programAreas = [
         </router-link>
         <router-link
           :to="{ name: RouteNames.AI_FORM_ASSIST_ONBOARDING }"
-          class="btn btn-secondary inline-block"
+          class="btn btn-secondary"
         >
           Onboarding
         </router-link>
@@ -109,7 +109,7 @@ const programAreas = [
     </PageHero>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>What It Is</h3>
+      <h2>What It Is</h2>
       <p class="mt-2 text-[var(--bc-text)]">
         AI Form Assist is a reusable, multi-agent AI service that helps applicants complete complex government forms and
         permit applications. Developed as a common service through CSBC, it adds an intelligent assistant to
@@ -122,7 +122,7 @@ const programAreas = [
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>Key Capabilities</h3>
+      <h2>Key Capabilities</h2>
       <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard
           v-for="capability in capabilities"
@@ -136,7 +136,7 @@ const programAreas = [
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>How It Works</h3>
+      <h2>How It Works</h2>
       <ProcessSteps :steps="howItWorks" />
     </section>
 
@@ -144,7 +144,7 @@ const programAreas = [
       id="architecture"
       class="border-t border-[var(--bc-border)] py-4"
     >
-      <h3>Architecture</h3>
+      <h2>Architecture</h2>
       <p class="mt-2 text-[var(--bc-text)]">
         Requests from client web applications go through a public API to the Orchestrator Agent, which routes them to
         specialized agents. Each tenant's client profile defines its approved web addresses, enabled agents, prompts,
@@ -160,7 +160,7 @@ const programAreas = [
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
-      <h3>Built for Cross-Government Adoption</h3>
+      <h2>Built for Cross-Government Adoption</h2>
       <p class="mt-2 text-[var(--bc-text)]">
         AI Form Assist is designed as a reusable platform that can support a wide range of government programs and
         permitting processes.
@@ -169,7 +169,7 @@ const programAreas = [
         <span
           v-for="area in programAreas"
           :key="area"
-          class="rounded-full bg-[var(--bc-surface-hover)] px-3 py-1 text-sm font-medium text-[var(--bc-blue)]"
+          class="inline-flex min-h-8 items-center rounded-full border border-[var(--bcds-support-border-color-info)] bg-[var(--bcds-support-surface-color-info)] px-4 text-xs"
         >
           {{ area }}
         </span>
@@ -180,7 +180,7 @@ const programAreas = [
       <p class="mt-2 text-[var(--bc-text)]">See what you'll need and how onboarding works.</p>
       <router-link
         :to="{ name: RouteNames.AI_FORM_ASSIST_ONBOARDING }"
-        class="btn btn-primary mt-4 inline-block"
+        class="btn btn-primary mt-4"
       >
         Onboarding
       </router-link>

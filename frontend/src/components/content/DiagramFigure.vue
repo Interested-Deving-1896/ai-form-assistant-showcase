@@ -11,7 +11,7 @@ defineProps<{
 <template>
   <figure class="m-0">
     <div
-      class="mt-6 flex items-center justify-center rounded border border-dashed border-[var(--bc-border)] bg-white p-10"
+      class="mt-6 flex items-center justify-center rounded border border-[var(--bc-border)] bg-white p-10"
     >
       <!-- Full width so SVGs without intrinsic dimensions (viewBox only) don't collapse to zero width -->
       <a
@@ -24,7 +24,7 @@ defineProps<{
         <img
           :src="src"
           :alt="alt"
-          class="mx-auto block max-h-[400px] w-full object-contain"
+          class="mx-auto block max-h-100 w-full object-contain"
         />
       </a>
     </div>

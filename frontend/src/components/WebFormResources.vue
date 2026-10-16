@@ -11,32 +11,70 @@ const isPromptTemplateVisible = ref(false);
 const isFeeCalculationVisible = ref(false);
 </script>
 <template>
-  <div class="notes-container flex flex-col gap-4">
-    <h4>Client Configuration</h4>
-    <button
-      class="btn btn-secondary"
-      @click="isDataSourcesVisible = true"
+  <aside
+    class="resources-panel"
+    aria-labelledby="resources-title"
+  >
+    <h2
+      id="resources-title"
+      class="resources-title"
     >
-      Data Sources
-    </button>
-    <button
-      class="btn btn-secondary"
-      @click="isFormDefinitionVisible = true"
-    >
-      Form Definition
-    </button>
-    <button
-      class="btn btn-secondary"
-      @click="isPromptTemplateVisible = true"
-    >
-      Prompt Template
-    </button>
-    <button
-      class="btn btn-secondary"
-      @click="isFeeCalculationVisible = true"
-    >
-      MCP Tool - Fee Calculation
-    </button>
+      Service Configuration
+    </h2>
+    <div class="flex flex-col gap-2">
+      <h6>Retrieval-Augmented Generation (RAG)</h6>
+
+      <button
+        type="button"
+        class="btn btn-secondary w-full justify-start"
+        @click="isDataSourcesVisible = true"
+      >
+        <i
+          class="pi pi-database"
+          aria-hidden="true"
+        />
+        Data Sources
+      </button>
+
+      <h6>Form Support</h6>
+
+      <button
+        type="button"
+        class="btn btn-secondary w-full justify-start"
+        @click="isFormDefinitionVisible = true"
+      >
+        <i
+          class="pi pi-list"
+          aria-hidden="true"
+        />
+        Form Definition
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary w-full justify-start"
+        @click="isPromptTemplateVisible = true"
+      >
+        <i
+          class="pi pi-comment"
+          aria-hidden="true"
+        />
+        Prompt Template
+      </button>
+
+      <h6>MCP Tools</h6>
+
+      <button
+        type="button"
+        class="btn btn-secondary w-full justify-start"
+        @click="isFeeCalculationVisible = true"
+      >
+        <i
+          class="pi pi-calculator"
+          aria-hidden="true"
+        />
+        Fee Calculation
+      </button>
+    </div>
 
     <Dialog
       v-model:visible="isDataSourcesVisible"
@@ -100,8 +138,10 @@ const isFeeCalculationVisible = ref(false);
       :style="{ width: '40rem' }"
     >
       <p class="m-0">
-        A Form Definition (JSON schema) tells the AI Form-Assistant about the webform and data structure. It is used to
-        instruct the Assistant with AI prompts and provides more 'context' for each form field.
+        A JSON Form Definition informs the
+        <strong>Form Support Agent</strong>
+        about your webform's structure. The JSON can be enriched with additional context for each form field, provides a
+        mapping to AI prompts and is used by JavaScript to update the webform.
       </p>
       <pre><code>{{ JSON.stringify(formDefinition, null, 2) }}</code></pre>
     </Dialog>
@@ -135,5 +175,25 @@ const isFeeCalculationVisible = ref(false);
       </p>
       <pre><code>{{ JSON.stringify(calculationRates, null, 2) }}</code></pre>
     </Dialog>
-  </div>
+  </aside>
 </template>
+
+<style scoped>
+.resources-panel {
+  padding: var(--bcds-layout-padding-large);
+  border: var(--bcds-layout-border-width-small) solid var(--bc-border);
+  border-radius: var(--bcds-layout-border-radius-medium);
+  background-color: var(--bc-surface-light);
+
+  h6 {
+    font-size: var(--bcds-typography-font-size-body);
+  }
+}
+
+/* Heading 2 for the page outline, sized down to fit the sidebar */
+.resources-title {
+  margin: 0 0 var(--bcds-layout-margin-medium);
+  font-size: var(--bcds-typography-font-size-h5);
+  line-height: var(--bcds-typography-line-heights-dense);
+}
+</style>

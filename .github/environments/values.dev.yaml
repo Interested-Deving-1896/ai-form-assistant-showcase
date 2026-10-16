@@ -4,7 +4,8 @@ config:
   configMap:
     FRONTEND_APIPATH: api/v1
     # TODO: set to the CHEFS demo form URL to show the "Open the CHEFS demo" button
-    # FRONTEND_CHEFS_DEMO_URL: https://...
+    FRONTEND_CHEFS_DEMO_URL: https://submit.digital.gov.bc.ca/app/form/submit?f=dcddfdd1-6ee1-40b8-ba53-5b4d051d81df
+    FRONTEND_AIFAS_CLIENT_SRC: https://aiformclient.z9.web.core.windows.net/scripts/tenants/fish/client.js
     FRONTEND_NOTIFICATION_BANNER: This is the DEV environment of aifas.
     FRONTEND_OIDC_AUTHORITY: https://dev.loginproxy.gov.bc.ca/auth/realms/standard
     FRONTEND_OIDC_CLIENTID: ai-form-assistant-showcase-6180

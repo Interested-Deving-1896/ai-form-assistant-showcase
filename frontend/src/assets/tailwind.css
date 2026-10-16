@@ -1,4 +1,5 @@
-@layer tailwind-base, primevue, tailwind-utilities;
+/* Lowest to highest priority. Keep in sync with the PrimeVue cssLayer order in main.ts */
+@layer tailwind-base, app-base, primevue, app-components, tailwind-utilities;
 
 @import 'tailwindcss/theme' layer(tailwind-base);
 @import 'tailwindcss/utilities' layer(tailwind-utilities);

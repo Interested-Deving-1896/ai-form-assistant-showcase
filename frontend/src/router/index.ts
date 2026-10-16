@@ -140,7 +140,14 @@ export default function getRouter() {
   const authService = new AuthService();
   const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    // Scroll to the section a #hash names, e.g. a link to another page's section. Back and forward restore the
+    // previous position; any other navigation starts at the top of the page.
+    scrollBehavior(to, _from, savedPosition) {
+      if (savedPosition) return savedPosition;
+      if (to.hash) return { el: to.hash };
+      return { top: 0 };
+    }
   });
 
   router.beforeEach(async (to) => {
