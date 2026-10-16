@@ -8,15 +8,17 @@ export const DELIMITER = '/';
  */
 export const RouteNames = Object.freeze({
   AI_FORM_ASSIST: 'ai-form-assist',
-  AI_FORM_ASSIST_ARCHITECTURE: 'ai-form-assist-architecture',
-  ARCHITECTURE: 'architecture',
+  AI_FORM_ASSIST_CHEFS_DEMO: 'ai-form-assist-chefs-demo',
+  AI_FORM_ASSIST_DEMO: 'ai-form-assist-demo',
+  AI_FORM_ASSIST_ONBOARDING: 'ai-form-assist-onboarding',
+  AI_SERVICES_HUB: 'ai-services-hub',
   CALLBACK: 'callback',
+  CONTACT: 'contact',
   DEVELOPER: 'developer',
   FORBIDDEN: 'forbidden',
   HOME: 'home',
   LOGIN: 'login',
-  LOGOUT: 'logout',
-  DEMO: 'demo'
+  LOGOUT: 'logout'
 });
 
 /**

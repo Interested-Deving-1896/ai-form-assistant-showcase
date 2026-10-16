@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { Toolbar } from '@/lib/primevue';
@@ -10,7 +10,15 @@ import { RouteNames } from '@/utils/constants';
 const { getIsAuthenticated } = storeToRefs(useAuthStore());
 const route = useRoute();
 
-const isFormAssistActive = computed(() => route.name === RouteNames.AI_FORM_ASSIST);
+// Pages in the AI Form Assist submenu. Auth-only pages stay listed and show a lock until the user logs in.
+const formAssistPages = [
+  { label: 'Overview', name: RouteNames.AI_FORM_ASSIST },
+  { label: 'Demo', name: RouteNames.AI_FORM_ASSIST_DEMO, requiresAuth: true },
+  { label: 'CHEFS Demo', name: RouteNames.AI_FORM_ASSIST_CHEFS_DEMO },
+  { label: 'Onboarding', name: RouteNames.AI_FORM_ASSIST_ONBOARDING }
+];
+
+const isFormAssistActive = computed(() => route.path.startsWith('/ai-form-assist'));
 const isSubmenuOpen = ref(false);
 const submenuContainer = ref<HTMLElement | null>(null);
 
@@ -19,6 +27,11 @@ function handleClickOutside(event: MouseEvent) {
     isSubmenuOpen.value = false;
   }
 }
+
+watch(
+  () => route.fullPath,
+  () => (isSubmenuOpen.value = false)
+);
 
 onMounted(() => document.addEventListener('click', handleClickOutside));
 onUnmounted(() => document.removeEventListener('click', handleClickOutside));
@@ -37,12 +50,13 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside));
               ref="submenuContainer"
               class="has-submenu"
               :class="{ 'submenu-open': isSubmenuOpen, active: isFormAssistActive }"
+              @keydown.esc="isSubmenuOpen = false"
             >
-              <router-link :to="{ name: RouteNames.AI_FORM_ASSIST }">AI Form-Assist</router-link>
+              <router-link :to="{ name: RouteNames.AI_FORM_ASSIST }">AI Form Assist</router-link>
               <button
                 type="button"
                 class="submenu-toggle"
-                aria-label="Toggle AI Form-Assist submenu"
+                aria-label="Toggle AI Form Assist submenu"
                 :aria-expanded="isSubmenuOpen"
                 @click="isSubmenuOpen = !isSubmenuOpen"
               >
@@ -52,32 +66,28 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside));
                 v-if="isSubmenuOpen"
                 class="submenu"
               >
-                <li>
-                  <router-link
-                    :to="{ name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE }"
-                    @click="isSubmenuOpen = false"
-                  >
-                    Architecture
-                  </router-link>
-                </li>
-                <li v-if="getIsAuthenticated">
-                  <router-link
-                    :to="{ name: RouteNames.DEMO }"
-                    @click="isSubmenuOpen = false"
-                  >
-                    Demo
+                <li
+                  v-for="page in formAssistPages"
+                  :key="page.name"
+                >
+                  <router-link :to="{ name: page.name }">
+                    {{ page.label }}
+                    <template v-if="page.requiresAuth && !getIsAuthenticated">
+                      <i
+                        class="pi pi-lock submenu-lock"
+                        aria-hidden="true"
+                      />
+                      <span class="sr-only">(login required)</span>
+                    </template>
                   </router-link>
                 </li>
               </ul>
             </li>
             <li>
-              <a
-                href="https://bcgov.github.io/ai-hub-tracking/index.html"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                AI Services Hub
-              </a>
+              <router-link :to="{ name: RouteNames.AI_SERVICES_HUB }">AI Services Hub</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: RouteNames.CONTACT }">Contact</router-link>
             </li>
           </ol>
         </template>
@@ -179,6 +189,12 @@ $nav-shadow: 0 6px 8px -4px #b3b1b3;
 
         .submenu-caret {
           font-size: 0.7rem;
+        }
+
+        .submenu-lock {
+          align-self: center;
+          font-size: 0.75rem;
+          margin-left: 0.5rem;
         }
 
         .submenu {

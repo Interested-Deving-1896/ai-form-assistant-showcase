@@ -151,6 +151,14 @@ label {
   }
 }
 
+// Stretches a banner to the full viewport width from inside the centred main column
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* ---------- primevue overrides ------------ */
 
 .p-accordionheader {

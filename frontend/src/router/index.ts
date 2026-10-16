@@ -4,7 +4,7 @@ import { AuthService } from '@/services';
 import { useAppStore } from '@/store';
 import { RouteNames, StorageKey } from '@/utils/constants';
 
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
 /**
  * @function createProps
@@ -16,7 +16,23 @@ import type { RouteRecordRaw } from 'vue-router';
 //   return { ...route.query, ...route.params };
 // }
 
-const routes: Array<RouteRecordRaw> = [
+/**
+ * @function getLoginEntrypoint
+ * Determines where to return the user after logging in. Prefers an in-app path passed as the
+ * `entrypoint` query param (set by the authentication guard), otherwise the current page.
+ * @param {RouteLocationNormalized} to The login route being entered
+ * @returns {string} The path to return to after login
+ */
+function getLoginEntrypoint(to: RouteLocationNormalized): string {
+  const entrypoint = to.query.entrypoint;
+  // Only accept same-app paths; '//host' would be treated as another origin
+  if (typeof entrypoint === 'string' && entrypoint.startsWith('/') && !entrypoint.startsWith('//')) {
+    return entrypoint;
+  }
+  return `${window.location.pathname}${window.location.search}${window.location.hash}`;
+}
+
+export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: RouteNames.HOME,
@@ -24,28 +40,53 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'Home' }
   },
   {
-    path: '/demo',
-    name: RouteNames.DEMO,
-    component: () => import('@/views/DemoView.vue'),
-    meta: { requiresAuth: true, title: 'Demo' }
-  },
-  {
     path: '/ai-form-assist',
     name: RouteNames.AI_FORM_ASSIST,
-    component: () => import('@/views/AiFormAssistView.vue'),
-    meta: { title: 'AI Form-Assist' }
+    component: () => import('@/views/ai-form-assist/AiFormAssistOverviewView.vue'),
+    meta: { title: 'AI Form Assist' }
+  },
+  {
+    path: '/ai-form-assist/demo',
+    name: RouteNames.AI_FORM_ASSIST_DEMO,
+    component: () => import('@/views/ai-form-assist/AiFormAssistDemoView.vue'),
+    meta: { requiresAuth: true, title: 'AI Form Assist Demo' }
+  },
+  {
+    path: '/ai-form-assist/chefs-demo',
+    name: RouteNames.AI_FORM_ASSIST_CHEFS_DEMO,
+    component: () => import('@/views/ai-form-assist/AiFormAssistChefsDemoView.vue'),
+    meta: { title: 'AI Form Assist CHEFS Demo' }
+  },
+  {
+    path: '/ai-form-assist/onboarding',
+    name: RouteNames.AI_FORM_ASSIST_ONBOARDING,
+    component: () => import('@/views/ai-form-assist/AiFormAssistOnboardingView.vue'),
+    meta: { title: 'AI Form Assist Onboarding' }
+  },
+  {
+    path: '/ai-services-hub',
+    name: RouteNames.AI_SERVICES_HUB,
+    component: () => import('@/views/AiServicesHubView.vue'),
+    meta: { title: 'AI Services Hub' }
+  },
+  {
+    path: '/contact',
+    name: RouteNames.CONTACT,
+    component: () => import('@/views/ContactView.vue'),
+    meta: { title: 'Contact' }
+  },
+  // Legacy paths from the previous site structure
+  {
+    path: '/demo',
+    redirect: { name: RouteNames.AI_FORM_ASSIST_DEMO }
   },
   {
     path: '/ai-form-assist/architecture',
-    name: RouteNames.AI_FORM_ASSIST_ARCHITECTURE,
-    component: () => import('@/views/AiFormAssistArchitecture.vue'),
-    meta: { title: 'AI Form-Assist Architecture' }
+    redirect: { name: RouteNames.AI_FORM_ASSIST }
   },
   {
     path: '/architecture',
-    name: RouteNames.ARCHITECTURE,
-    component: () => import('@/views/ArchitectureView.vue'),
-    meta: { title: 'Architecture' }
+    redirect: { name: RouteNames.AI_FORM_ASSIST }
   },
   {
     path: '/developer',
@@ -68,9 +109,8 @@ const routes: Array<RouteRecordRaw> = [
         name: RouteNames.LOGIN,
         component: () => import('@/views/oidc/OidcLoginView.vue'),
         meta: { title: 'Logging in...' },
-        beforeEnter: () => {
-          const entrypoint = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-          window.sessionStorage.setItem(StorageKey.AUTH, entrypoint);
+        beforeEnter: (to) => {
+          window.sessionStorage.setItem(StorageKey.AUTH, getLoginEntrypoint(to));
         }
       },
       {
@@ -116,10 +156,12 @@ export default function getRouter() {
     }
 
     // Authentication Guard
+    // Uses router.replace (not a returned redirect) so the cancelled navigation still reaches afterEach
+    // and the loading counter stays balanced. The target path is passed along so login can return to it.
     if (to.meta.requiresAuth) {
       const user = await authService.getUser();
       if (!user || user.expired) {
-        router.replace({ name: RouteNames.LOGIN });
+        router.replace({ name: RouteNames.LOGIN, query: { entrypoint: to.fullPath } });
       }
     }
   });
