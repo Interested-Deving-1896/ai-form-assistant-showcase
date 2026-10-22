@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
-import { Button } from '@/lib/primevue';
 import { useAuthStore } from '@/store/authStore';
 import { RouteNames } from '@/utils/constants';
 
@@ -21,29 +20,20 @@ function logout() {
 </script>
 
 <template>
-  <Button
+  <button
     v-if="!getIsAuthenticated"
-    severity="secondary"
-    outlined
+    type="button"
+    class="btn btn-secondary"
     @click="login()"
   >
     Log in
-  </Button>
-  <Button
+  </button>
+  <button
     v-else
-    severity="secondary"
-    outlined
+    type="button"
+    class="btn btn-secondary"
     @click="logout()"
   >
     Log out
-  </Button>
+  </button>
 </template>
-
-<style scoped>
-button {
-  color: white !important;
-  &:hover {
-    background-color: transparent !important;
-  }
-}
-</style>

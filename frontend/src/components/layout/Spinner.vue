@@ -4,13 +4,13 @@ import { ProgressSpinner } from '@/lib/primevue';
 
 <template>
   <ProgressSpinner
-    style="width: 50px; height: 50px"
+    style="width: 3.125rem; height: 3.125rem"
     stroke-width="4"
   />
 </template>
 
 <style lang="scss" scoped>
 :deep(.p-progress-spinner-circle) {
-  stroke: #00004d !important;
+  stroke: var(--bc-blue) !important;
 }
 </style>
