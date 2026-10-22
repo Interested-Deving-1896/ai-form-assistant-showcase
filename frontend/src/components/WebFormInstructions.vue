@@ -30,9 +30,9 @@
       <h6>Suggested prompts</h6>
       <ul class="my-0">
         <li><i>"Do kids need a fishing licence?"</i></li>
-        <li><i>"My WID is: '12345'"</i></li>
+        <li><i>"My WID is: 12345"</i></li>
         <li><i>"What is a Classified Water?"</i></li>
-        <li><i>"I am an adult BC resident and I need a 1 day permit to fish for steelhead in the Fraser river "</i></li>
+        <li><i>"I am an adult BC resident and I need a 1 day permit to fish for steelhead in the Fraser river"</i></li>
         <!--<li><i>"What is the estimated cost?"</i> (experimental)</li>-->
       </ul>
     </div>

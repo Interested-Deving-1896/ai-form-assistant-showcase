@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, START_LOCATION } from 'vue-router';
 
 import { AuthService } from '@/services';
 import { useAppStore } from '@/store';
@@ -141,12 +141,14 @@ export default function getRouter() {
   const router = createRouter({
     history: createWebHistory(),
     routes,
-    // Scroll to the section a #hash names, e.g. a link to another page's section. Back and forward restore the
-    // previous position; any other navigation starts at the top of the page.
-    scrollBehavior(to, _from, savedPosition) {
-      if (savedPosition) return savedPosition;
-      if (to.hash) return { el: to.hash };
-      return { top: 0 };
+    // Back and forward restore the previous position. A #hash scrolls to that section, smoothly when it's on the
+    // current page (main.scss turns on smooth scrolling unless the user prefers reduced motion). Any other
+    // navigation starts at the top of the page. Everything but a same-page jump is instant, overriding main.scss.
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) return { ...savedPosition, behavior: 'instant' };
+      const isSamePage = from !== START_LOCATION && to.path === from.path;
+      if (to.hash) return isSamePage ? { el: to.hash } : { el: to.hash, behavior: 'instant' };
+      return { top: 0, behavior: 'instant' };
     }
   });
 
@@ -175,7 +177,7 @@ export default function getRouter() {
 
   router.afterEach((to) => {
     // Update document title
-    document.title = to.meta.title ? `AI Form-Assistant showcase - ${to.meta.title}` : 'AI Form-Assistant showcase';
+    document.title = to.meta.title ? `AI Common Service - ${to.meta.title}` : 'AI Common Service';
 
     appStore.endDeterminateLoading();
   });

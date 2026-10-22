@@ -10,9 +10,7 @@ defineProps<{
 
 <template>
   <figure class="m-0">
-    <div
-      class="mt-6 flex items-center justify-center rounded border border-[var(--bc-border)] bg-white p-10"
-    >
+    <div class="mt-6 flex items-center justify-center rounded border border-[var(--bc-border)] bg-white p-5">
       <!-- Full width so SVGs without intrinsic dimensions (viewBox only) don't collapse to zero width -->
       <a
         :href="src"

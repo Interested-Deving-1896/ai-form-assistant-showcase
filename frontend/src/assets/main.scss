@@ -32,6 +32,11 @@
 @layer app-base {
   html {
     font-family: BCSans, 'BC Sans', 'Noto Sans', Verdana, Arial, sans-serif;
+
+    // Animates jumps to a section on the same page, e.g. a link to #services. The router keeps page changes instant.
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
   }
 
   body,

@@ -33,19 +33,15 @@ const capabilities = [
     icon: 'user',
     title: 'Context-Aware Support',
     description: 'Offers relevant suggestions and pre-fill capabilities based on user inputs.'
-  },
-  {
-    icon: 'sitemap',
-    title: 'Multi-Agent Architecture',
-    description: 'A multi-tenant framework of specialized AI agents, shown in the architecture below.'
   }
+  // The Multi-Agent Architecture card is in the template, since its description links to the architecture section
 ];
 
 const howItWorks = [
   {
-    title: 'The assistant loads in your form',
+    title: 'The Assistant loads in your form',
     description:
-      'The web form adds a small client script, which places the chat assistant on the page and tracks which form step the applicant is on.'
+      'The web form loads a small client JavaScript, which places the chat assistant on the page and tracks which form step the applicant is on.'
   },
   {
     title: 'Your tenant is verified',
@@ -83,8 +79,8 @@ const programAreas = [
 <template>
   <div class="w-full max-w-[75rem]">
     <PageHero title="AI Form Assist">
-      Helping people complete government applications with confidence through AI-powered guidance, while improving
-      submission quality and reducing administrative effort across ministries.
+      Helping people complete webforms with confidence through AI-powered guidance, while improving submission quality
+      and reducing administrative effort across ministries.
       <template #actions>
         <router-link
           :to="{ name: RouteNames.AI_FORM_ASSIST_DEMO }"
@@ -116,8 +112,8 @@ const programAreas = [
         e-permitting solutions, online forms, and legacy platforms without requiring major system changes.
       </p>
       <p class="mt-4 text-[var(--bc-text)]">
-        The assistant provides real-time, policy-informed guidance and validation throughout the application, helping
-        applicants submit higher-quality applications while reducing support demands on government staff.
+        The Assistant provides real-time, policy-informed guidance and validation throughout the application form,
+        helping applicants submit higher-quality responses while reducing support demands on government staff.
       </p>
     </section>
 
@@ -131,6 +127,15 @@ const programAreas = [
           :title="capability.title"
         >
           {{ capability.description }}
+        </FeatureCard>
+        <!-- Prettier would move the period after the link onto its own line, which renders as a space before it -->
+        <!-- prettier-ignore -->
+        <FeatureCard
+          icon="sitemap"
+          title="Multi-Agent Architecture"
+        >
+          A multi-tenant framework of specialized AI agents, shown in the
+          <a href="#architecture">architecture below</a>.
         </FeatureCard>
       </div>
     </section>

@@ -36,7 +36,7 @@ const isFeeCalculationVisible = ref(false);
         Data Sources
       </button>
 
-      <h6>Form Support</h6>
+      <h6>Form Support Agent resources</h6>
 
       <button
         type="button"
@@ -61,7 +61,7 @@ const isFeeCalculationVisible = ref(false);
         Prompt Template
       </button>
 
-      <h6>MCP Tools</h6>
+      <h6>MCP Tool</h6>
 
       <button
         type="button"
@@ -169,9 +169,16 @@ const isFeeCalculationVisible = ref(false);
       dismissable-mask
       :style="{ width: '40rem', overflowX: 'auto' }"
     >
+      <!-- Prettier would move the period after the link onto its own line, which renders as a space before it -->
+      <!-- prettier-ignore -->
       <p class="m-0">
         The MCP Tool is a fee calculation tool that calculates the total cost of a fishing licence based on the selected
-        options.
+        options in the webform. The JSON below shows inputs to the calculation. More sample code can be seen
+        <a
+          href="https://github.com/bcgov/nr-ai-form/tree/dev-commonservices/agentic_ai_backend/agents/formsupportagent/local_mcp/fishing_licence"
+          target="_blank"
+          rel="noopener noreferrer"
+        >here</a>.
       </p>
       <pre><code>{{ JSON.stringify(calculationRates, null, 2) }}</code></pre>
     </Dialog>

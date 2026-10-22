@@ -46,7 +46,7 @@ const CHEFS_TENANT_URL = 'https://github.com/bcgov/ai-form-client/tree/main/src/
           <p>
             The Assistant connects to a curated knowledge source, such as a set of documents or website content,
             allowing it to provide the user with relevant guidance and information based on the content of your form and
-            associated knowledge base.
+            associated materials.
           </p>
           <p>
             With additional custom javascript and manual editing of your CHEFS form schema, you can also enable the Form

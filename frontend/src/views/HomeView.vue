@@ -13,7 +13,7 @@ const orgLevels = [
   { level: 'Ministry', name: "Ministry of Citizens' Services (CITZ)" },
   { level: 'Organization', name: 'Connected Services BC (CSBC)' },
   { level: 'Division', name: 'Economic Opportunities Division' },
-  { level: 'Our team', name: 'Common AI Services and Products (CAPS)', current: true }
+  { level: 'Our team', name: 'Common AI Products and Services (CAPS)', current: true }
 ];
 
 // TODO(content): draft values distilled from the previous Home page copy; review
@@ -43,7 +43,7 @@ const values = [
   {
     icon: 'users',
     title: 'Shared Innovation',
-    description: 'Collaboration across ministries, with the governance and control each program needs.'
+    description: 'Collaboration across ministries and CSBC, with the governance and control each program needs.'
   }
 ];
 

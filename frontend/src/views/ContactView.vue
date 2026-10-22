@@ -22,8 +22,8 @@ const teamsChannels: Array<{ name: string; href: string }> = [
 <template>
   <div class="w-full max-w-[75rem]">
     <PageHero title="Contact Us">
-      Talk to the AI Common Service team about AI Form Assist, the AI Services Hub, or an AI opportunity in your program
-      area.
+      Talk to the Common AI Products and Services (CAPS) team about AI Form Assist, the AI Services Hub, or an AI
+      opportunity in your program area.
     </PageHero>
 
     <section class="border-t border-[var(--bc-border)] py-4">
@@ -43,7 +43,7 @@ const teamsChannels: Array<{ name: string; href: string }> = [
       <h3>Email</h3>
       <!-- TODO(content): confirm the mailbox; package.json lists NR.CommonServiceShowcase@gov.bc.ca instead -->
       <p class="mt-2 text-[var(--bc-text)]">
-        For anything else, email us at
+        If you prefer a more private way to reach us, email us at
         <a href="mailto:NRM.CommonServiceShowcase@gov.bc.ca">NRM.CommonServiceShowcase@gov.bc.ca</a>
       </p>
     </section>

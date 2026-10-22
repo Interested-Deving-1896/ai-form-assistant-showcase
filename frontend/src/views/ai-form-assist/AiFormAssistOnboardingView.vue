@@ -4,9 +4,9 @@ import { RouteNames } from '@/utils/constants';
 
 const goodFitSignals = [
   'Complex application forms or permit processes',
-  'Frequent applicant questions before submission',
+  'Frequent questions from applicants before submitting a webform',
   'High rates of incomplete or unclear applications',
-  'Program rules that can be explained using approved guidance',
+  'Program rules that can be explained using approved guidance and regulations',
   'Staff time spent following up for missing information',
   'A need to improve applicant experience without rebuilding the full system'
 ];
@@ -16,7 +16,7 @@ const requirements = [
   {
     item: 'Your web form',
     purpose:
-      'A page where one script tag can be added, plus its exact web addresses. Only approved addresses can use your assistant.',
+      'A page where one script tag can be added, plus its web addresses. Only approved addresses can use your assistant.',
     preparedBy: 'Your team'
   },
   {
@@ -40,7 +40,7 @@ const requirements = [
   {
     item: 'Calculations (optional)',
     purpose:
-      'Business rules such as fee calculations. Existing tools cover livestock water use and fishing licence fees; a new calculation needs development work.',
+      'Business rules such as fee calculations and database lookups. Example tools include livestock water use and fishing licence fees; a new tool needs development work.',
     preparedBy: 'Together'
   },
   {
@@ -59,11 +59,12 @@ const onboardingSteps = [
   {
     title: 'Discovery and scope',
     description:
-      'Together we walk through the form and your content, and agree which steps, knowledge sources, and calculations are in scope.'
+      'Together we walk through the form and your content, and agree which steps, knowledge sources, and types of assistance are in scope.'
   },
   {
     title: 'Content preparation',
-    description: 'Your knowledge sources are indexed, and the form definitions and prompts are written for each step.'
+    description:
+      'Your knowledge sources are indexed, and the form definitions and prompts are written for each step - a refinement process to ensure accuracy and relevance.'
   },
   {
     title: 'Tenant setup',
@@ -146,23 +147,53 @@ const integrationSnippet = [
 
     <section class="border-t border-[var(--bc-border)] py-4">
       <h2>How Onboarding Works</h2>
-      <ProcessSteps :steps="onboardingSteps" />
+      <!-- Limits the steps to 800px at the default font size; the section's top border stays full width -->
+      <ProcessSteps
+        class="max-w-[60rem]"
+        :steps="onboardingSteps"
+      />
     </section>
 
     <section class="border-t border-[var(--bc-border)] py-4">
       <h2>For Developers</h2>
-      <p class="mt-2 text-[var(--bc-text)]">
-        To use the
-        <strong>Form Support Agent</strong>
-        for form filling capabilities, you will need a form definition and prompt templates. (See the
-        <router-link :to="{ name: RouteNames.AI_FORM_ASSIST_DEMO }">demo</router-link>
-        for code examples.)
-      </p>
-      <p>To embed the Assistant in your own web-page, you will need to link to load our client.js file:</p>
-      <pre><code>{{ integrationSnippet }}</code></pre>
+      <p>Here is a high-level overview of some coding steps required:</p>
+
+      <ul>
+        <li>
+          To add the Assistant in your own web-page, you will need to link to load our client.js file:
+
+          <pre><code>{{ integrationSnippet }}</code></pre>
+
+          <p>
+            We can modify the core client.js file as needed to customize the chat features. You will need to add your
+            AIFA tenant ID and may wish to set specific configuration options.
+          </p>
+        </li>
+
+        <li>
+          <p>
+            To use the
+            <strong>Form Support Agent</strong>
+            , add
+            <code>data-id</code>
+            attributes to your form fields to help the assistant identify them more reliably. This is optional but
+            recommended for better form-filling accuracy.
+          </p>
+
+          <p class="mt-2 text-[var(--bc-text)]">
+            You will need a
+            <strong>form definition</strong>
+            and
+            <strong>prompt templates</strong>
+            to give context to AI about your webform. (See the
+            <router-link :to="{ name: RouteNames.AI_FORM_ASSIST_DEMO }">demo</router-link>
+            for code examples.)
+          </p>
+        </li>
+      </ul>
 
       <p>
-        All of this code can be managed through our
+        All of this code can be managed together through our
         <a
           href="https://github.com/bcgov/ai-form-client"
           target="_blank"

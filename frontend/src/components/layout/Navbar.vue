@@ -12,9 +12,9 @@ const route = useRoute();
 // Pages in the AI Form Assist submenu. Auth-only pages stay listed and show a lock until the user logs in.
 const formAssistPages = [
   { label: 'Overview', name: RouteNames.AI_FORM_ASSIST },
+  { label: 'Onboarding', name: RouteNames.AI_FORM_ASSIST_ONBOARDING },
   { label: 'Demo', name: RouteNames.AI_FORM_ASSIST_DEMO, requiresAuth: true },
-  { label: 'CHEFS Demo', name: RouteNames.AI_FORM_ASSIST_CHEFS_DEMO },
-  { label: 'Onboarding', name: RouteNames.AI_FORM_ASSIST_ONBOARDING }
+  { label: 'CHEFS PoC', name: RouteNames.AI_FORM_ASSIST_CHEFS_DEMO }
 ];
 
 const isFormAssistActive = computed(() => route.path.startsWith('/ai-form-assist'));
