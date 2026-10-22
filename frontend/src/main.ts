@@ -3,7 +3,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import PrimeVue from 'primevue/config';
-import Aura from '@primeuix/themes/aura';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
@@ -13,10 +12,12 @@ import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { createApp } from 'vue';
 
 import App from '@/App.vue';
+import { BCGovPreset } from '@/lib/primevue/theme';
 import getRouter from '@/router';
 import { AuthService, ConfigService } from '@/services';
 
 import '@bcgov/bc-sans/css/BCSans.css';
+import '@bcgov/design-tokens/css-prefixed/variables.css';
 import 'primeicons/primeicons.css';
 import '@/assets/tailwind.css';
 import '@/assets/main.scss';
@@ -42,13 +43,15 @@ function initializeApp(): void {
   /* PrimeVue Configuration */
   app.use(PrimeVue, {
     theme: {
-      preset: Aura,
+      preset: BCGovPreset,
       options: {
         prefix: 'p',
-        darkModeSelector: 'system',
+        // The BC Design System has no dark theme
+        darkModeSelector: 'none',
         cssLayer: {
           name: 'primevue',
-          order: 'tailwind-base, primevue, tailwind-utilities'
+          // Keep in sync with the layer order in tailwind.css
+          order: 'tailwind-base, app-base, primevue, app-components, tailwind-utilities'
         }
       }
     },

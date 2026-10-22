@@ -11,15 +11,24 @@ import { Header, Footer } from '@/components/layout';
     </div>
 
     <!-- Main views -->
-    <main class="my-6 flex-auto">
-      <div class="mx-auto w-full max-w-[1200px] px-6 lg:px-16">
+    <main
+      id="main-content"
+      class="my-6 flex-auto"
+      tabindex="-1"
+    >
+      <div class="layout-container">
         <slot name="main" />
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="flex-shrink-0">
-      <Footer />
-    </footer>
+    <Footer class="flex-shrink-0" />
   </div>
 </template>
+
+<style scoped>
+/* Focused programmatically by the skip link only */
+#main-content:focus {
+  outline: none;
+}
+</style>

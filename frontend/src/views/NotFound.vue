@@ -1,7 +1,7 @@
 <script setup lang="ts" />
 
 <template>
-  <h3>Not found.</h3>
+  <h1>Not found.</h1>
 </template>
 
 <style lang="scss" scoped></style>

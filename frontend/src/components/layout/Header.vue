@@ -3,44 +3,106 @@ import { LoginButton } from '@/components/layout';
 </script>
 
 <template>
-  <header>
-    <nav id="header-branding">
-      <div class="flex flex-row flex-wrap items-center mx-auto w-full max-w-[1200px] px-4 lg:pl-12">
-        <div class="flex flex-none">
-          <a href="https://www2.gov.bc.ca">
-            <img
-              src="@/assets/images/bc_logo.svg"
-              width="181"
-              height="44"
-              alt="B.C. Government Logo"
-            />
-          </a>
-        </div>
-        <div class="flex grow ml-2">
-          <h2 class="m-0 mx-2">AI Common Service</h2>
-        </div>
-        <div class="flex flex-none lg:mr-12 ml-2">
-          <LoginButton />
-        </div>
-      </div>
-    </nav>
+  <!-- BC Design System header: https://www2.gov.bc.ca/gov/content/digital/design-system/components/header -->
+  <header class="app-header">
+    <div class="layout-container app-header-container">
+      <ul class="app-header-skiplinks">
+        <li><a href="#main-content">Skip to main content</a></li>
+      </ul>
+      <a
+        href="https://www2.gov.bc.ca"
+        class="app-header-logo -ml-4"
+      >
+        <img
+          src="@/assets/images/bc_logo_colour.svg"
+          width="175"
+          height="65"
+          alt="Government of British Columbia"
+        />
+      </a>
+      <span
+        class="app-header-line"
+        aria-hidden="true"
+      />
+      <span class="app-header-title">AI Common Service</span>
+      <LoginButton />
+    </div>
   </header>
 </template>
 
 <style lang="scss" scoped>
-#header-branding {
-  background-color: #003366;
-  color: white;
-  white-space: nowrap;
-  box-shadow: 0 6px 8px -4px #b3b1b3;
-  -webkit-box-shadow: 0 6px 8px -4px #b3b1b3;
-  -moz-box-shadow: 0 6px 8px -4px #b3b1b3;
+.app-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 3.0625rem;
+  padding: 0.5rem 0;
+  background-color: var(--bcds-surface-color-forms-default);
+  border-bottom: var(--bcds-layout-border-width-small) solid var(--bc-border);
+}
 
-  h2 {
-    color: white;
+.app-header-container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  gap: var(--bcds-layout-padding-medium);
+}
+
+.app-header-logo {
+  display: flex;
+  flex-shrink: 0;
+
+  // In rem so the logo scales with the root font size; the width and height attributes keep its aspect ratio
+  img {
+    width: 10.9375rem;
+    height: auto;
   }
-  @media not print {
-    border-bottom: 2px solid #fcba19;
+}
+
+.app-header-line {
+  flex-shrink: 0;
+  width: 1px;
+  height: 2.5rem;
+  background-color: var(--bc-border);
+}
+
+.app-header-title {
+  flex-grow: 1;
+  color: var(--bc-text);
+  font-size: var(--bcds-typography-font-size-h4);
+  font-weight: var(--bcds-typography-font-weights-bold);
+  line-height: var(--bcds-typography-line-heights-sparse);
+}
+
+// Hidden off screen until focused
+.app-header-skiplinks {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    position: absolute;
+    margin-top: -1.094rem;
+    margin-left: -100000px;
+    padding: var(--bcds-layout-padding-xsmall) var(--bcds-layout-padding-medium);
+    background-color: var(--bcds-surface-color-forms-default);
+    white-space: nowrap;
+
+    &:focus {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .app-header-line,
+  .app-header-title {
+    display: none;
+  }
+
+  .app-header-logo {
+    flex-grow: 1;
   }
 }
 </style>

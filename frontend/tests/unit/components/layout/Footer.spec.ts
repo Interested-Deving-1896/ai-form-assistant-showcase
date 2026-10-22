@@ -40,13 +40,13 @@ describe('Footer.vue', () => {
     expect(wrapper).toBeTruthy();
   });
 
-  it('contains 7 links', () => {
+  it('contains the contact links and 7 more info links', () => {
     const wrapper = mount(Footer, {
       global: {
         plugins: [createTestingPinia(), PrimeVue]
       }
     });
-    const links = wrapper.findAll('a');
-    expect(links).toHaveLength(7);
+    expect(wrapper.findAll('.footer-logo a')).toHaveLength(2);
+    expect(wrapper.findAll('.footer-links a')).toHaveLength(7);
   });
 });
